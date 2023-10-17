@@ -11,21 +11,34 @@ namespace Layers.Services
     public class AccountService
     {
         private AccountRepo accountRepo;
-        public AccountService() {
+        public AccountService()
+        {
             accountRepo = new AccountRepo();
         }
 
-        public void GetAll()
-        {
+        //OBS add validation to all methods!
 
+        public void GetAll()
+
+        {
+            accountRepo.ReadAll();
+            //get List of all objects in databases
         }
 
-        public void Edit() { }
-
-        public void Remove() { }
-
-        public bool Add (string name, int age)
+        public void Edit()
         {
+            //edit one of the objects in the List in database (by Id)
+        }
+
+        public void Remove()
+        {
+            //delete one of the objects in the List in database (by Id)
+        }
+
+        public bool Add(string name, int age)
+        {
+            //creates one objects to the List in database 
+
             int ageRestriction = 18;
             DateTime startDate = DateTime.Now.AddDays(-5);
 
@@ -34,7 +47,7 @@ namespace Layers.Services
             account.Name = name;
             account.Age = age;
             account.Balance = DateTime.Now > startDate ? 200 : 0;
-           
+
             accountRepo.Create(account);
             return true;
         }

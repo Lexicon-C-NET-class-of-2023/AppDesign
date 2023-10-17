@@ -10,17 +10,13 @@ namespace Layers.Repositories
 {
     public class AccountRepo
     {
-
+        
         private string path = @"C:Users/tobiasengberg/Coding/Layers/Data/account_data.json";
         public AccountRepo() 
         { 
 
         }
 
-        public List<Account> ReadAll()
-        {
-            return new List<Account> { new Account() };
-        }
 
         public Account Create(Account account)
         {
@@ -28,21 +24,32 @@ namespace Layers.Repositories
             int newId = accounts.OrderBy(a => a.Id).Last().Id + 1;
             account.Id = newId;
             accounts.Add(account);
-            FileAction(accounts);
+            FileMutations(accounts);
+            return account;
+        }
+
+        public List<Account> ReadAll()
+        {
+            //get List of all objects in databases
+            //FileRead() 
+            return new List<Account> { new Account() };
+        }
+        public Account Update(Account account)
+        {
+            //edit one of the objects in the List in database (by Id)
+            //FileMutations ()
             return account;
         }
 
         public bool Delete(int id)
         {
+            //delete one of the objects in the List in database (by Id)
+            //FileMutations ()
             return false;
         }
 
-        public Account Update(Account account)
-        {
-            return account;
-        }
 
-        public bool FileAction (List<Account> accounts) 
+        public bool FileMutations (List<Account> accounts) 
         {
             string value = JsonSerializer.Serialize<List<Account>>(accounts);
             File.WriteAllText(path, value);

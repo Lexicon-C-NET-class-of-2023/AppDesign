@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Layers.Controllers;
+using Layers.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,13 +12,36 @@ namespace Layers.Views
     {
         public static void AppMenu()
         {
-            Console.WriteLine("Menu with menu options");
+            string[] choices = { "Press 1 to Create Account", "Press 2 to Rent" };
+            char choice = GetChoice();
+
+            if (choice == '1')
+            {
+                Console.WriteLine("You have chosen Create Account");
+                AccountController myAccountController = new AccountController();
+            }
+            else
+            {
+                Console.WriteLine("You have chosen to Rent");
+                //RentController myRentController = new RentController();
+            }
         }
 
+
+        //public static char GetChoice("Array of choices", "ConditionalAttribute to fulfill")
         public static char GetChoice()
         {
-            char letter = 'A';
-            return letter;
+            char key = 'a';
+
+            while (!(key is '1' or '2'))
+            {
+                Console.WriteLine("Press 1 to Create Account");
+                Console.WriteLine("Press 2 to Rent");
+                //foreach (var item in choices) Console.WriteLine(item); 
+
+                key = Console.ReadKey().KeyChar;
+            }
+            return key;
         }
     }
 }

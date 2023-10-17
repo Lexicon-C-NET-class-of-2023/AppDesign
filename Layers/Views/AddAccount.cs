@@ -13,13 +13,14 @@ namespace Layers.Views
             string name;
             string age;
             bool invalid = true;
+            //this is a view that will
             do
             {
                 Console.WriteLine("Please enter your name:");
                 name = Console.ReadLine();
                 Console.WriteLine("Please enter your age:");
                 age = Console.ReadLine();
-                if (!name.Contains(',') || !age.Contains(',')) invalid = false;
+                if (!name.Contains(',') && !age.Contains(',')) invalid = false;
             } while (invalid);
 
             return $"{name},{age}";

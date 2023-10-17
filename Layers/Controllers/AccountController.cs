@@ -11,25 +11,33 @@ namespace Layers.Controllers
     public class AccountController
     {
         private AccountService accountService;
-        public AccountController() {
+        public AccountController()
+        {
             accountService = new AccountService();
         }
 
         public void Index()
         {
             Menu.AppMenu();
+
             char response = Menu.GetChoice();
-            switch(response)
+            switch (response)
             {
-                case 'A':
+                case '1':
                     Set();
                     break;
+                //case '2':
+                //    accountService.GetAll();
+                //    break;
+                //case '3':
+                //    accountService.Remove();
+                //    break;
                 default:
-                    break;             
+                    break;
             }
         }
 
-        public void Set()
+        public void Set() //equivalent to url
         {
             string response = AddAccount.NewAccount();
             string[] temp = response.Split(',');
@@ -39,8 +47,9 @@ namespace Layers.Controllers
             {
                 age = int.Parse(temp[1]);
             }
-            catch {
-                
+            catch
+            {
+
             }
             accountService.Add(name, age);
 
