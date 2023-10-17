@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "registered": "2022-10-16T00:00:00",
+    "firstName": "John",
+    "lastName": "Doe",
+    "age": 20,
+    "address": {
+      "city": "Växjö",
+      "zipCode": "12345",
+      "street": "Drottninggatan, 1"
+    },
+    "phonenumber": "+1 1111111111",
+    "email": "john.doe@yahoo.com"
+  },
+
+  {
+    "id": 2,
+    "registered": "2022-10-16T00:00:00",
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "age": 18,
+    "address": {
+      "city": "Växjö",
+      "zipCode": "12345",
+      "street": "Drottninggatan, 1"
+    },
+    "phonenumber": "+1 2222222222",
+    "email": "jane.doe@yahoo.com"
+  }
+]
