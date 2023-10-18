@@ -9,7 +9,6 @@ namespace Layers.Models
     public class Account
     {
         public int Id { get; set; }
-        //public DateTime Registered { get; set; }
         public string Registered { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

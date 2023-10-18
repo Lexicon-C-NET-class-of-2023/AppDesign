@@ -3,6 +3,7 @@ using Layers.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,28 +17,37 @@ namespace Layers.Controllers
             accountService = new AccountService();
         }
 
+
         public void Index()
         {
-            Menu.AppMenu();
+            string[] alternatives = {
+                "Press 1 to to show Accounts",
+                "Press 2 to Create New Account",
+                "Press 3 to Modify Account",
+                "Press 4 to Delete Account"
+            };
 
-            //char response = Menu.GetChoice();
-            //switch (response)
-            //{
-            //    case '1':
-            //        Set();
-            //        break;
-            //    //case '2':
-            //    //    accountService.GetAll();
-            //    //    break;
-            //    //case '3':
-            //    //    accountService.Remove();
-            //    //    break;
-            //    default:
-            //        break;
-            //}
+            char response = Menu.GetUserInput(alternatives);
+
+            (response switch
+            {
+                '1' => (Action)ViewAllAccounts,
+                '2' => CreateNewAccount,
+                '3' => ModifyAnAccount,
+                '4' => DeleteAnAccount,
+                _ => throw new ArgumentOutOfRangeException()
+            })();
         }
 
-        public void Set() //equivalent to url
+
+        public void ViewAllAccounts()
+        {
+            var response = accountService.GetAll();
+            ShowAccounts.ShowAllAccounts(response);
+        }
+
+
+        public void CreateNewAccount() //equivalent to url
         {
             string response = AddAccount.NewAccount();
             string[] temp = response.Split(',');
@@ -52,12 +62,16 @@ namespace Layers.Controllers
 
             }
             accountService.Add(name, age);
-
         }
 
-        public void ViewAll()
+        public void ModifyAnAccount()
         {
+            //accountService.MethodName();
+        }
 
+        public void DeleteAnAccount()
+        {
+            //accountService.MethodName();
         }
     }
 }

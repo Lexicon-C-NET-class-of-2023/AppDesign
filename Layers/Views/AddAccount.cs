@@ -13,7 +13,7 @@ namespace Layers.Views
             string name;
             string age;
             bool invalid = true;
-            //this is a view that will
+            
             do
             {
                 Console.WriteLine("Please enter your name:");

@@ -4,10 +4,10 @@ using Layers.Services;
 //Menu.AppMenu();
 
 
-AccountRepo myAccountRepo = new AccountRepo();
-var accounts = myAccountRepo.FileRead();
+//AccountRepo myAccountRepo = new AccountRepo();
+//var accounts = myAccountRepo.FileRead();
 
-foreach (var item in accounts) Console.WriteLine("In Program.cs " + item.FirstName);
+//foreach (var item in accounts) Console.WriteLine("In Program.cs " + item.FirstName);
 
 
 
