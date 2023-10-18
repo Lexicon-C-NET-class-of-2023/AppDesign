@@ -1,0 +1,21 @@
+[
+  {
+    "Id": 1,
+    "Model": "Husqvarna LB251S",
+    "PricePerDay": "100",
+    "PricePerWeek": "500",
+    "available": false,
+    "dateOfRent": "2022-10-16T00:00:00",
+    "dateOfReturn)": "2022-10-21T00:00:00"
+  },
+  {
+    "Id": 2,
+    "Model": "Husqvarna LB251S",
+    "PricePerDay": "100",
+    "PricePerWeek": "500",
+    "available": true,
+    "dateOfRent": null,
+    "dateOfReturn)": null
+  },
+  }
+]
