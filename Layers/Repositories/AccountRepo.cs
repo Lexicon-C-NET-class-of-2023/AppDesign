@@ -35,16 +35,16 @@ namespace Layers.Repositories
             return account;
         }
 
-        public List<Account> ReadAll()
-        {
-            return new List<Account> { new Account() };
-        }
+        public List<Account> ReadAll() => FileRead();
+
+
         public Account Update(Account account)
         {
             //edit one of the objects in the List in database (by Id)
             //FileMutations ()
             return account;
         }
+
 
         public bool Delete(int id)
         {
@@ -64,7 +64,7 @@ namespace Layers.Repositories
         public List<Account> FileRead()
         {
             string values = File.ReadAllText(path);
-            Console.WriteLine("The original JSON" + values);
+            //Console.WriteLine("The original JSON" + values);
 
             try
             {

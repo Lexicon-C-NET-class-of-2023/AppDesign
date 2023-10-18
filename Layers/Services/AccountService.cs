@@ -18,12 +18,8 @@ namespace Layers.Services
 
         //OBS add validation to all methods!
 
-        public void GetAll()
+        public List<Account> GetAll() => accountRepo.ReadAll();
 
-        {
-            accountRepo.ReadAll();
-            //get List of all objects in databases
-        }
 
         public void Edit()
         {

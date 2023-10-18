@@ -1,10 +1,5 @@
 ﻿using Layers.Controllers;
-using Layers.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Layers.Views
 {
@@ -12,47 +7,37 @@ namespace Layers.Views
     {
         public static void AppMenu()
         {
-            string[] alternatives = { "Press 1 to Create Account", "Press 2 to Rent" };
-            //Console.WriteLine(alternatives);
-
-            char choice = GetChoice(alternatives);
+            string[] alternatives = { "Press 1 for Accounts", "Press 2 for Rentals" };
+            char choice = GetUserInput(alternatives);
 
 
             if (choice == '1')
             {
-                Console.WriteLine("You have chosen Create Account");
+                Console.WriteLine("You have chosen Create Account\n");
                 AccountController myAccountController = new AccountController();
+                myAccountController.Index();
             }
             else
             {
-                Console.WriteLine("You have chosen to Rent");
+                Console.WriteLine("You have chosen to Rent\n");
                 //RentController myRentController = new RentController();
+                //myRentController.Index();
             }
         }
 
 
-        //public static char GetChoice("Array of choices", "ConditionalAttribute to fulfill")
-        public static char GetChoice(string[] alternatives)
+
+
+        public static char GetUserInput(string[] alternatives)
         {
-            Console.WriteLine("HFJIFHJK" + alternatives);
             char key = 'a';
+            int[] condition = new int[alternatives.Length];
 
+            for (int i = 0; i < alternatives.Length; i++) condition[i] = i + 1;
 
-            //int[] condition = new int[choices.Length];
-
-            //for (int i = 0; i < choices.Length; i++)
-            //{
-            //    condition[i] = i + 1;
-            //}
-
-
-            while (!(key is '1' or '2'))
-            //while (!condition.Contains(key))
+            while (!condition.Contains(key - '0'))
             {
-                Console.WriteLine("Press 1 to Create Account");
-                Console.WriteLine("Press 2 to Rent");
-                //foreach (var item in choices) Console.WriteLine(item); 
-
+                foreach (var item in alternatives) Console.WriteLine(item);
                 key = Console.ReadKey().KeyChar;
             }
             return key;
