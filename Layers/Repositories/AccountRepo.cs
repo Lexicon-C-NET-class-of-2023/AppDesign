@@ -1,20 +1,27 @@
 ﻿using Layers.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
+
 
 namespace Layers.Repositories
 {
     public class AccountRepo
     {
-        
-        private string path = @"C:Users/tobiasengberg/Coding/Layers/Data/account_data.json";
-        public AccountRepo() 
-        { 
+        private string path;
 
+        public AccountRepo()
+        {
+            try
+            {
+                path = Directory.GetCurrentDirectory().Split("\\bin")[0] + "\\DataBase\\account.json";
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
 
@@ -30,8 +37,6 @@ namespace Layers.Repositories
 
         public List<Account> ReadAll()
         {
-            //get List of all objects in databases
-            //FileRead() 
             return new List<Account> { new Account() };
         }
         public Account Update(Account account)
@@ -43,26 +48,39 @@ namespace Layers.Repositories
 
         public bool Delete(int id)
         {
-            //delete one of the objects in the List in database (by Id)
+            //delete one of the objects in the List in database (by Id) 
             //FileMutations ()
             return false;
         }
 
 
-        public bool FileMutations (List<Account> accounts) 
+        public bool FileMutations(List<Account> accounts)
         {
             string value = JsonSerializer.Serialize<List<Account>>(accounts);
             File.WriteAllText(path, value);
             return true;
         }
 
-        public List<Account> FileRead() 
+        public List<Account> FileRead()
         {
             string values = File.ReadAllText(path);
+            Console.WriteLine("The original JSON" + values);
+
+            try
+            {
+                //TODO, NEEDS TO HANDLE EXCEPTIONS (RIGHT NOW IF PUT IN HERE IT WILL NOT BE ABLE TO RETURN A NEW LIST OF ACCOUNTS)
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
             List<Account> accounts = JsonSerializer.Deserialize<List<Account>>(values);
             return accounts;
         }
-
-
     }
 }

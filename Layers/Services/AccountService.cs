@@ -39,16 +39,16 @@ namespace Layers.Services
         {
             //creates one objects to the List in database 
 
-            int ageRestriction = 18;
-            DateTime startDate = DateTime.Now.AddDays(-5);
+            //int ageRestriction = 18;
+            //DateTime startDate = DateTime.Now.AddDays(-5);
 
-            if (age < ageRestriction) return false;
-            Account account = new Account();
-            account.Name = name;
-            account.Age = age;
-            account.Balance = DateTime.Now > startDate ? 200 : 0;
+            //if (age < ageRestriction) return false;
+            //Account account = new Account();
+            //account.Name = name;
+            //account.Age = age;
+            //account.Balance = DateTime.Now > startDate ? 200 : 0;
 
-            accountRepo.Create(account);
+            //accountRepo.Create(account);
             return true;
         }
     }

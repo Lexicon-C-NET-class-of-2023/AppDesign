@@ -1,6 +1,14 @@
-﻿using Layers.Views;
+﻿using Layers.Repositories;
+//using Layers.Views;
+//Menu.AppMenu();
 
-Menu.AppMenu();
+
+AccountRepo myAccountRepo = new AccountRepo();
+var accounts = myAccountRepo.FileRead();
+
+foreach (var item in accounts) Console.WriteLine("In Program.cs " + item.FirstName);
+
+
 
 // MVC (Model, View, Controller)
 

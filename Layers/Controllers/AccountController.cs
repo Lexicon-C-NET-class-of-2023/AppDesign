@@ -20,21 +20,21 @@ namespace Layers.Controllers
         {
             Menu.AppMenu();
 
-            char response = Menu.GetChoice();
-            switch (response)
-            {
-                case '1':
-                    Set();
-                    break;
-                //case '2':
-                //    accountService.GetAll();
-                //    break;
-                //case '3':
-                //    accountService.Remove();
-                //    break;
-                default:
-                    break;
-            }
+            //char response = Menu.GetChoice();
+            //switch (response)
+            //{
+            //    case '1':
+            //        Set();
+            //        break;
+            //    //case '2':
+            //    //    accountService.GetAll();
+            //    //    break;
+            //    //case '3':
+            //    //    accountService.Remove();
+            //    //    break;
+            //    default:
+            //        break;
+            //}
         }
 
         public void Set() //equivalent to url

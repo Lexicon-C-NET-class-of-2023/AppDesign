@@ -12,8 +12,11 @@ namespace Layers.Views
     {
         public static void AppMenu()
         {
-            string[] choices = { "Press 1 to Create Account", "Press 2 to Rent" };
-            char choice = GetChoice();
+            string[] alternatives = { "Press 1 to Create Account", "Press 2 to Rent" };
+            //Console.WriteLine(alternatives);
+
+            char choice = GetChoice(alternatives);
+
 
             if (choice == '1')
             {
@@ -29,11 +32,22 @@ namespace Layers.Views
 
 
         //public static char GetChoice("Array of choices", "ConditionalAttribute to fulfill")
-        public static char GetChoice()
+        public static char GetChoice(string[] alternatives)
         {
+            Console.WriteLine("HFJIFHJK" + alternatives);
             char key = 'a';
 
+
+            //int[] condition = new int[choices.Length];
+
+            //for (int i = 0; i < choices.Length; i++)
+            //{
+            //    condition[i] = i + 1;
+            //}
+
+
             while (!(key is '1' or '2'))
+            //while (!condition.Contains(key))
             {
                 Console.WriteLine("Press 1 to Create Account");
                 Console.WriteLine("Press 2 to Rent");
