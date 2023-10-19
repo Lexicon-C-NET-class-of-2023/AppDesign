@@ -20,14 +20,7 @@ namespace Layers.Controllers
 
         public void Index()
         {
-            string[] alternatives = {
-                "Press 1 to to show Accounts",
-                "Press 2 to Create New Account",
-                "Press 3 to Modify Account",
-                "Press 4 to Delete Account"
-            };
-
-            char response = Menu.GetUserInput(alternatives);
+            char response = Menu.AccountMenu();
 
             (response switch
             {

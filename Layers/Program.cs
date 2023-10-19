@@ -1,6 +1,6 @@
 ﻿using Layers.Repositories;
 using Layers.Views;
-Menu.AppMenu();
+Menu.MainMenu();
 
 
 //AccountRepo myAccountRepo = new AccountRepo();

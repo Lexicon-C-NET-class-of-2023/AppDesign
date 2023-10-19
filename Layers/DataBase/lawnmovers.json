@@ -1,0 +1,26 @@
+[
+  {
+    "Id": 1,
+    "Registered": "2022-10-16T00:00:00",
+    "FirstName": "Jon",
+    "LastName": "Doe",
+    "Age": 23,
+    "City": "Vislanda",
+    "ZipCode": "12345",
+    "Street": "Drottninggatan, 1",
+    "Phonenumber": "+1 2222222222",
+    "Email": "jane.doe@yahoo.com"
+  },
+  {
+    "Id": 2,
+    "Registered": "2022-10-16T00:00:00",
+    "FirstName": "Jane",
+    "LastName": "Doe",
+    "Age": 18,
+    "City": "Växjö",
+    "ZipCode": "12345",
+    "Street": "Drottninggatan, 1",
+    "Phonenumber": "+1 2222222222",
+    "Email": "jane.doe@yahoo.com"
+  }
+]
