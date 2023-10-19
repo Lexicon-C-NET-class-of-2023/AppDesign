@@ -1,6 +1,6 @@
 ﻿using Layers.Models;
 
-namespace Layers.Views
+namespace Layers.Views.Accounts
 {
     public static class ShowAccounts
     {

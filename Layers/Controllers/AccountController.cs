@@ -1,5 +1,6 @@
 ﻿using Layers.Services;
 using Layers.Views;
+using Layers.Views.Accounts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,7 @@ namespace Layers.Controllers
         public void CreateNewAccount() //equivalent to url
         {
             string response = AddAccount.NewAccount();
+
             string[] temp = response.Split(',');
             string name = temp[0];
             int age = 0;

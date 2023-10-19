@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Layers.Views
+namespace Layers.Views.Accounts
 {
     public static class AddAccount
     {
@@ -13,7 +13,7 @@ namespace Layers.Views
             string name;
             string age;
             bool invalid = true;
-            
+
             do
             {
                 Console.WriteLine("Please enter your name:");
