@@ -1,24 +1,17 @@
-﻿namespace Layers.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Layers.Models
 {
     public class Rental
     {
-        public int Id { get; set; }
-        public string Model { get; set; }
-        public bool Available { get; set; }
-        public int PricePerDay { get; set; }
-        public int PricePerWeek { get; set; }
-        public DateTime DateOfRent { get; set; }
-        public DateTime DateOfReturn { get; set; }
-
-        public Rental(bool available, DateTime dateOfRent, DateTime dateOfReturn)
-        {
-            DateOfRent = dateOfRent;
-            DateOfReturn = dateOfReturn;
-
-            Model = "Husqvarna LB251S";
-            Available = available || true;
-            PricePerDay = 100;
-            PricePerWeek = 500;
-        }
+        public string RentedBy { get; set; }
+        public string Period { get; set; }
+        public int Id { get; set; } 
+        public string lownMoverId { get; set; } 
+        
     }
 }

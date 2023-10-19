@@ -1,10 +1,9 @@
 ﻿using Layers.Repositories;
 using Layers.Services;
 using Layers.Views;
-Menu.AppMenu();
+Menu.MainMenu();
 
 
-//AccountRepo myAccountRepo = new AccountRepo();
 //var accounts = myAccountRepo.FileRead();
 
 //foreach (var item in accounts) Console.WriteLine("In Program.cs " + item.FirstName);

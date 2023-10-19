@@ -1,12 +1,12 @@
 ﻿using Layers.Models;
 
-namespace Layers.Views
+namespace Layers.Views.Accounts
 {
     public static class ShowAccounts
     {
         public static void ShowAllAccounts(List<Account> accounts)
         {
-            Console.WriteLine("REGISTERED ACCOUNTS\n");
+            Console.WriteLine("\n\n\nRegistered Accounts\n");
             foreach (var account in accounts)
             {
                 Console.WriteLine("Id: " + account.Id);
