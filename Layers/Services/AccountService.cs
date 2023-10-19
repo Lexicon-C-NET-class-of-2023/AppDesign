@@ -31,20 +31,19 @@ namespace Layers.Services
             //delete one of the objects in the List in database (by Id)
         }
 
-        public bool Add(string name, int age)
+        public bool Add(string firstName, string lastName, int age, string city, string zipCode, string street, string phoneNr, string email)
         {
-            //creates one objects to the List in database 
+            Account account = new Account();
+            account.FirstName = firstName;
+            account.Age = age;
+            account.LastName = lastName;
+            account.City = city;
+            account.ZipCode = zipCode;
+            account.Street = street;
+            account.Phonenumber = phoneNr;
+            account.Email = email;
 
-            //int ageRestriction = 18;
-            //DateTime startDate = DateTime.Now.AddDays(-5);
-
-            //if (age < ageRestriction) return false;
-            //Account account = new Account();
-            //account.Name = name;
-            //account.Age = age;
-            //account.Balance = DateTime.Now > startDate ? 200 : 0;
-
-            //accountRepo.Create(account);
+            accountRepo.Create(account);
             return true;
         }
     }

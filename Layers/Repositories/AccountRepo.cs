@@ -27,10 +27,14 @@ namespace Layers.Repositories
 
         public Account Create(Account account)
         {
+            //Fetching the List from the DB
             List<Account> accounts = FileRead();
-            int newId = accounts.OrderBy(a => a.Id).Last().Id + 1;
-            account.Id = newId;
+            //Appending data
+            account.Id = accounts.OrderBy(a => a.Id).Last().Id + 1;
+            account.Registered = DateTime.Now.ToString();
+            //Adding the new account to accounts
             accounts.Add(account);
+            //Saving the new List to DB
             FileMutations(accounts);
             return account;
         }

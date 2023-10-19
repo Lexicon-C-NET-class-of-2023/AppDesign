@@ -3,7 +3,9 @@ using Layers.Views;
 using Layers.Views.Accounts;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,17 +48,25 @@ namespace Layers.Controllers
             string response = AddAccount.NewAccount();
 
             string[] temp = response.Split(',');
-            string name = temp[0];
+            string firstName = temp[0];
+            string lastName = temp[1];
+            string city = temp[3];
+            string zipCode = temp[4];
+            string street = temp[5];
+            string phoneNr = temp[6];
+            string email = temp[7];
+
             int age = 0;
             try
             {
-                age = int.Parse(temp[1]);
+                age = int.Parse(temp[2]);
             }
             catch
             {
 
             }
-            accountService.Add(name, age);
+
+            accountService.Add(firstName, lastName, age, city, zipCode, street, phoneNr, email);
         }
 
         public void ModifyAnAccount()
