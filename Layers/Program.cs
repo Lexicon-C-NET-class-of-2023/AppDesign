@@ -1,7 +1,7 @@
 ﻿using Layers.Repositories;
 using Layers.Services;
-//using Layers.Views;
-//Menu.AppMenu();
+using Layers.Views;
+Menu.AppMenu();
 
 
 //AccountRepo myAccountRepo = new AccountRepo();
@@ -23,4 +23,9 @@ using Layers.Services;
 // Services: human-near aliases for calling the CRUD operations
 // Models: structures the objects that go into the database 
 
-// FLOW Program.cs => Menu.cs => (new menues with further alternatives) => Controllers => Services => Repos => Models
+// FLOW Program.cs => Menu.cs => (new menues with further ( ... ) alternatives) => Controllers => Services => Repos => Models
+// ( ... ) AccountControllers.cs => public void ViewAllAccounts()
+//    {
+//    var response = accountService.GetAll();
+//    ShowAccounts.ShowAllAccounts(response);
+//    }
