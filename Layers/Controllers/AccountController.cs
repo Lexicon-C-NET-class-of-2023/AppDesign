@@ -69,10 +69,38 @@ namespace Layers.Controllers
             accountService.Add(firstName, lastName, age, city, zipCode, street, phoneNr, email);
         }
 
+
         public void ModifyAnAccount()
+
         {
-            //accountService.MethodName();
+            var accounts = accountService.GetAll();
+
+            //Dynamically creates alternatives to chooose from in Menu.ChooseAccountToModifyMenu
+            List<string> temp = new List<string>();
+            foreach (var a in accounts) temp.Add($"{a.Id}. {a.FirstName}");
+            string[] array = temp.Select(i => i.ToString()).ToArray();
+            char chosen = Menu.ChooseAccountToModifyMenu(array);
+            int id = chosen - '0';
+
+            //Get One by id
+            var account = accountService.GetOne(id);
+
+
+            //Menu choosing what to modify
+            char keyToModify = Menu.ModifyAccountMenu();
+
+            //view that prompts for new values
+            string newValue = ModifyAccount.Property(keyToModify);
+
+
+            Console.WriteLine("newValue  " + newValue);
+
+
+
+            accountService.Edit(account, keyToModify, newValue);
         }
+
+
 
         public void DeleteAnAccount()
         {

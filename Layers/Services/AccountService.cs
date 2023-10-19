@@ -3,6 +3,7 @@ using Layers.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,11 +20,12 @@ namespace Layers.Services
         //OBS add validation to all methods!
 
         public List<Account> GetAll() => accountRepo.ReadAll();
+        public Account GetOne(int id) => accountRepo.ReadOne(id);
 
 
-        public void Edit()
+        public void Edit(Account account, char keyToModify, string newValue)
         {
-            //edit one of the objects in the List in database (by Id)
+            accountRepo.Update(account, keyToModify, newValue);
         }
 
         public void Remove()

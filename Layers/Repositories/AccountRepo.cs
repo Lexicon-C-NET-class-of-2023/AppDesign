@@ -1,4 +1,6 @@
 ﻿using Layers.Models;
+using System.IO;
+using System.Reflection.Emit;
 using System.Text.Json;
 
 
@@ -41,11 +43,43 @@ namespace Layers.Repositories
 
         public List<Account> ReadAll() => FileRead();
 
-
-        public Account Update(Account account)
+        public Account ReadOne(int id)
         {
-            //edit one of the objects in the List in database (by Id)
-            //FileMutations ()
+            //Fetching the List from the DB
+            List<Account> accounts = FileRead();
+            //Filtering by id
+            Account account = accounts.Where(a => a.Id == id).ToList()[0];
+            return account;
+        }
+
+        public Account Update(Account account, char keyToModify, string newValue)
+        {
+            int age = 0;
+
+            if (keyToModify == '3')
+            {
+                age = int.Parse(newValue);
+                account.Age = age; //didn't work in the switch statement for some reason
+            }
+
+            string key = keyToModify switch
+            {
+                '1' => account.FirstName = newValue,
+                '2' => account.LastName = newValue,
+                '4' => account.City = newValue,
+                '5' => account.ZipCode = newValue,
+                '6' => account.Street = newValue,
+                '7' => account.Phonenumber = newValue,
+                '8' => account.Email = newValue,
+                _ => ""
+            };
+
+            List<Account> accounts = FileRead();
+            List<Account> newList = accounts.Where(a => a.Id != account.Id).ToList();
+
+            newList.Add(account);
+
+            FileMutations(newList);
             return account;
         }
 
@@ -60,7 +94,8 @@ namespace Layers.Repositories
 
         public bool FileMutations(List<Account> accounts)
         {
-            string value = JsonSerializer.Serialize<List<Account>>(accounts);
+            List<Account> sortedAccountList = accounts.OrderBy(q => q.Id).ToList();
+            string value = JsonSerializer.Serialize<List<Account>>(sortedAccountList);
             File.WriteAllText(path, value);
             return true;
         }

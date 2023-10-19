@@ -37,6 +37,24 @@ namespace Layers.Views
         }
 
 
+        public static char ChooseAccountToModifyMenu(string[] alternatives) => GetUserInput("\n\n\nUpdate Account Options", alternatives);
+
+
+        public static char ModifyAccountMenu()
+        {
+            string[] alternatives = {
+                "1. Modify Firstname",
+                "2. Modify Lastname",
+                "3. Modify Age",
+                "4. Modify City",
+                "5. Modify Zip code",
+                "6. Modify Street",
+                "7. Modify Phonenumber",
+                "8. Modify Email",
+            };
+
+            return GetUserInput("\n\n\nUpdate Account Options", alternatives);
+        }
 
 
 
