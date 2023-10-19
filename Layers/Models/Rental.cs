@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Layers.Models
 {
-    internal class Rental
+    public class Rental
     {
         public string RentedBy { get; set; }
         public string Period { get; set; }
