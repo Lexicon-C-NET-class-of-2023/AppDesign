@@ -28,9 +28,9 @@ namespace Layers.Services
             accountRepo.Update(account, keyToModify, newValue);
         }
 
-        public void Remove()
+        public void Remove(Account account)
         {
-            //delete one of the objects in the List in database (by Id)
+            accountRepo.Delete(account);
         }
 
         public bool Add(string firstName, string lastName, int age, string city, string zipCode, string street, string phoneNr, string email)

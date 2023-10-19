@@ -38,7 +38,7 @@ namespace Layers.Views
 
 
         public static char ChooseAccountToModifyMenu(string[] alternatives) => GetUserInput("\n\n\nUpdate Account Options", alternatives);
-
+        public static char ChooseAccountToDeleteMenu(string[] alternatives) => GetUserInput("\n\n\nDelete Account Options", alternatives);
 
         public static char ModifyAccountMenu()
         {

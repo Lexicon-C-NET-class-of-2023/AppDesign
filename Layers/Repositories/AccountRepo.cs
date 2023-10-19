@@ -84,11 +84,13 @@ namespace Layers.Repositories
         }
 
 
-        public bool Delete(int id)
+        public bool Delete(Account account)
         {
-            //delete one of the objects in the List in database (by Id) 
-            //FileMutations ()
-            return false;
+            List<Account> accounts = FileRead();
+            List<Account> newList = accounts.Where(a => a.Id != account.Id).ToList();
+
+            FileMutations(newList);
+            return true;
         }
 
 
