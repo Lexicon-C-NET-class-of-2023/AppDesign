@@ -10,6 +10,8 @@ namespace Layers.Models
     {
         public string RentedBy { get; set; }
         public string Period { get; set; }
-    
+        public string Id { get; set; } 
+        public string lownMoverId { get; set; } 
+        
     }
 }
