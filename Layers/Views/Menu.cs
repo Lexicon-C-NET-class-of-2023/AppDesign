@@ -24,6 +24,7 @@ namespace Layers.Views
             }
         }
 
+        //ACCOUNTS
         public static char AccountMenu()
         {
             string[] alternatives = {
@@ -36,10 +37,8 @@ namespace Layers.Views
             return GetUserInput("\n\n\nAccount Options", alternatives);
         }
 
-
         public static char ChooseAccountToModifyMenu(string[] alternatives) => GetUserInput("\n\n\nUpdate Account Options", alternatives);
         public static char ChooseAccountToDeleteMenu(string[] alternatives) => GetUserInput("\n\n\nDelete Account Options", alternatives);
-
         public static char ModifyAccountMenu()
         {
             string[] alternatives = {
@@ -56,12 +55,11 @@ namespace Layers.Views
             return GetUserInput("\n\n\nUpdate Account Options", alternatives);
         }
 
+        //RENTALS
+        //New menues for rental and so on goes here
 
 
-
-
-
-
+        //Dynamic method for numerical user-input that takes the header and alternatives as arguments and automatically creates a condition from the length of the alternatives for breaking the while-loop 
         public static char GetUserInput(string header, string[] alternatives)
         {
             char key = 'a';

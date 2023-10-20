@@ -1,14 +1,7 @@
 ﻿using Layers.Services;
 using Layers.Views;
 using Layers.Views.Accounts;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Layers.Controllers
 {
@@ -35,13 +28,11 @@ namespace Layers.Controllers
             })();
         }
 
-
         public void ViewAllAccounts()
         {
             var response = accountService.GetAll();
             ShowAccounts.ShowAllAccounts(response);
         }
-
 
         public void CreateNewAccount() //equivalent to url
         {
@@ -69,11 +60,10 @@ namespace Layers.Controllers
             accountService.Add(firstName, lastName, age, city, zipCode, street, phoneNr, email);
         }
 
-
         public void ModifyAnAccount()
 
         {
-            var accounts = accountService.GetAll();
+            List<Models.Account> accounts = accountService.GetAll();
 
             //Dynamically creates alternatives to chooose from in Menu.ChooseAccountToModifyMenu
             List<string> temp = new List<string>();
@@ -85,7 +75,6 @@ namespace Layers.Controllers
             //Get One by id
             var account = accountService.GetOne(id);
 
-
             //Menu choosing what to modify
             char keyToModify = Menu.ModifyAccountMenu();
 
@@ -94,8 +83,6 @@ namespace Layers.Controllers
 
             accountService.Edit(account, keyToModify, newValue);
         }
-
-
 
         public void DeleteAnAccount()
         {
