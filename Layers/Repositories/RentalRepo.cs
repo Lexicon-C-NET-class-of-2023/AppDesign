@@ -1,88 +1,166 @@
-﻿using System.Text.Json;
+﻿using Layers.Repositories;
+using System.Runtime.ConstrainedExecution;
+using System.Security.Principal;
+using System.Text.Json;
 
 namespace Layers.Models
 {
     public class RentalRepo
     {
-       
-        
-            private string path;
+        private string path;
+        private LawnmoverRepo lawnmoverRepo = new LawnmoverRepo();
 
-            public RentalRepo()
+        public RentalRepo()
+        {
+            try
             {
-                try
-                {
-                    path = Directory.GetCurrentDirectory().Split("\\bin")[0] + "\\DataBase\\rentals.json";
-                }
-                catch (FileNotFoundException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                catch (DirectoryNotFoundException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                path = Directory.GetCurrentDirectory().Split("\\bin")[0] + "\\DataBase\\rentals.json";
             }
-
-
-            public Rental Create(Rental rental)
+            catch (FileNotFoundException ex)
             {
-                List<Rental> rentals= FileRead();
-                int newId = rentals.OrderBy(a => a.Id).Last().Id + 1;
-                rental.Id = newId;
-                rentals.Add(rental);
-                FileMutations(rentals);
-                return rental;
+                Console.WriteLine(ex.Message);
             }
-
-            public List<Rental> ReadAll() => FileRead();
-
-
-            public Rental Update(Rental rental)
-                
+            catch (DirectoryNotFoundException ex)
             {
-                //edit one of the objects in the List in database (by Id)
-                //FileMutations ()
-                return rental;
-            }
-
-
-            public bool Delete(int id)
-            {
-                //delete one of the objects in the List in database (by Id) 
-                //FileMutations ()
-                return false;
-            }
-
-
-            public bool FileMutations(List<Rental> rentals
-                )
-            {
-                string value = JsonSerializer.Serialize<List<Rental>>(rentals);
-                File.WriteAllText(path, value);
-                return true;
-            }
-
-            public List<Rental> FileRead()
-            {
-                string values = File.ReadAllText(path);
-                //Console.WriteLine("The original JSON" + values);
-
-                try
-                {
-                    //TODO, NEEDS TO HANDLE EXCEPTIONS (RIGHT NOW IF PUT IN HERE IT WILL NOT BE ABLE TO RETURN A NEW LIST OF ACCOUNTS)
-                }
-                catch (FileNotFoundException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                catch (DirectoryNotFoundException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-
-                List<Rental> rentals = JsonSerializer.Deserialize<List<Rental>>(values);
-                return rentals;
+                Console.WriteLine(ex.Message);
             }
         }
+
+
+        public Rental Create(Rental rental)
+        {
+            int newId = 1;
+            List<Rental> rentals = FileRead();
+
+            if (rentals.Count > 0) newId = rentals.OrderBy(a => a.Id).Last().Id + 1;
+            rental.Id = newId;
+
+
+            DateTime now = DateTime.Now;
+
+            string date = now.ToString();
+
+            rental.FromDate = date;
+            rental.ToDate = rental.Period == "day" ? now.AddDays(rental.HowLong).ToString() : now.AddDays(rental.HowLong * 7).ToString();
+
+
+            //Modify properties on the Lawnmover object
+            Lawnmover lawnmover = lawnmoverRepo.ReadOne(rental.LownMoverId);
+            lawnmoverRepo.Update(lawnmover, '1', false.ToString());
+            lawnmoverRepo.Update(lawnmover, '5', date);
+            lawnmoverRepo.Update(lawnmover, '6', rental.Period == "day" ? now.AddDays(rental.HowLong).ToString() : now.AddDays(rental.HowLong * 7).ToString());
+
+
+            rentals.Add(rental);
+            FileMutations(rentals);
+            return rental;
+        }
+
+        public List<Rental> ReadAll() => FileRead();
+
+
+        public Rental ReadOne(int id)
+        {
+            //Fetching the List from the DB
+            List<Rental> rentals = FileRead();
+            //Filtering by id
+            Rental rental = rentals.Where(a => a.Id == id).ToList()[0];
+            return rental;
+        }
+
+        public Rental Update(Rental rental, char keyToModify, string newValue)
+
+        {
+            DateTime now = DateTime.Now;
+            int temp = 0;
+
+            if (keyToModify == '1')
+            {
+                temp = int.Parse(newValue);
+                rental.RentedByAccountId = temp;
+            }
+            else if (keyToModify == '2')
+            {
+                temp = int.Parse(newValue);
+                rental.LownMoverId = temp;
+            }
+            else if (keyToModify == '3')
+            {
+                rental.Period = newValue;
+                rental.ToDate = rental.Period == "day" ? now.AddDays(rental.HowLong).ToString() : now.AddDays(rental.HowLong * 7).ToString();
+            }
+            else if (keyToModify == '5')
+            {
+                temp = int.Parse(newValue);
+
+                rental.HowLong = temp;
+                rental.ToDate = rental.Period == "day" ? now.AddDays(rental.HowLong).ToString() : now.AddDays(rental.HowLong * 7).ToString();
+            }
+
+            string key = keyToModify switch
+            {
+                '3' => rental.Period = newValue,
+                '4' => rental.FromDate = newValue,
+                '6' => rental.ToDate = newValue,
+                _ => ""
+            };
+
+            List<Rental> rentals = FileRead();
+            List<Rental> newList = rentals.Where(a => a.Id != rental.Id).ToList();
+
+            newList.Add(rental);
+
+            FileMutations(newList);
+
+            return rental;
+        }
+
+
+        public bool Delete(Rental rental)
+        {
+            List<Rental> rentals = FileRead();
+
+            //Modify availibility on Lawnmover object
+            Lawnmover lawnmover = lawnmoverRepo.ReadOne(rental.LownMoverId);
+            lawnmoverRepo.Update(lawnmover, '1', true.ToString());
+            lawnmoverRepo.Update(lawnmover, '5', "");
+            lawnmoverRepo.Update(lawnmover, '6', "");
+
+            List<Rental> newList = rentals.Where(a => a.Id != rental.Id).ToList();
+
+            FileMutations(newList);
+            return true;
+        }
+
+
+        public bool FileMutations(List<Rental> rentals)
+        {
+            List<Rental> sortedRentalList = rentals.OrderBy(q => q.Id).ToList();
+            string value = JsonSerializer.Serialize(sortedRentalList);
+            File.WriteAllText(path, value);
+            return true;
+        }
+
+        public List<Rental> FileRead()
+        {
+            string values = File.ReadAllText(path);
+            //Console.WriteLine("The original JSON" + values);
+
+            try
+            {
+                //TODO, NEEDS TO HANDLE EXCEPTIONS (RIGHT NOW IF PUT IN HERE IT WILL NOT BE ABLE TO RETURN A NEW LIST OF ACCOUNTS)
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            List<Rental> rentals = JsonSerializer.Deserialize<List<Rental>>(values);
+            return rentals;
+        }
+    }
 }
