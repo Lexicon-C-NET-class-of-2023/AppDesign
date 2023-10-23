@@ -68,17 +68,19 @@ namespace Layers.Controllers
             List<string> temp = new List<string>();
             foreach (var a in accounts) temp.Add($"{a.Id}. {a.FirstName}");
             string[] array = temp.Select(i => i.ToString()).ToArray();
-            char chosen = Menu.Account.ChooseWhichToModifyMenu(array);
+            char chosen = Menu.Account.Modify.ChooseWhichMenu(array);
             int id = chosen - '0';
 
             //Get One by id
             var account = accountService.GetOne(id);
 
             //Menu choosing what to modify
-            char keyToModify = Menu.Account.ModifyMenu();
+            char keyToModify = Menu.Account.Modify.ChoosePropertyMenu();
 
             //view that prompts for new values
-            string newValue = ModifyAccount.Property(keyToModify);
+            string newValue = Menu.Account.Modify.NewValueMenu(keyToModify);
+
+            //string newValue = ModifyAccount.Property(keyToModify);
 
             accountService.Edit(account, keyToModify, newValue);
         }

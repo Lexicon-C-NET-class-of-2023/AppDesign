@@ -104,17 +104,17 @@ namespace Layers.Controllers
             List<string> temp = new List<string>();
             foreach (var a in rentals) temp.Add($"{a.Id}. {a.LownMoverId}");            //!!! Not correct yet
             string[] array = temp.Select(i => i.ToString()).ToArray();
-            char chosen = Menu.Rental.ChooseWhichToModifyMenu(array);
+            char chosen = Menu.Rental.Modify.ChooseWhichMenu(array);
             int id = chosen - '0';
 
             //Get One by id
             var rental = rentalService.GetOne(id);
 
             //Menu choosing what to modify
-            char keyToModify = Menu.Rental.ModifyMenu();
+            char keyToModify = Menu.Rental.Modify.ChoosePropertyMenu();
 
             //view that prompts for new values
-            string newValue = ModifyRental.Property(keyToModify);
+            string newValue = Menu.Rental.Modify.NewValueMenu(keyToModify);
 
             rentalService.Edit(rental, keyToModify, newValue);
         }

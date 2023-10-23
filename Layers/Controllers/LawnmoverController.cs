@@ -73,16 +73,16 @@ namespace Layers.Controllers
             List<string> temp = new List<string>();
             foreach (var a in lawnmovers) temp.Add($"{a.Id}. {a.Model}");
             string[] array = temp.Select(i => i.ToString()).ToArray();
-            int id = Menu.Lawnmover.ChooseWhichToModifyMenu(array);
+            int id = Menu.Lawnmover.Modify.ChooseWhichMenu(array);
 
             //Get One by id
             var lawnmover = lawnmoverService.GetOne(id);
 
             //Menu choosing what to modify
-            char keyToModify = Menu.Lawnmover.ModifyMenu();
+            char keyToModify = Menu.Lawnmover.Modify.ChoosePropertyMenu();
 
             //view that prompts for new values
-            string newValue = ModifyLawnmover.Property(keyToModify);
+            string newValue = Menu.Lawnmover.Modify.NewValueMenu(keyToModify);
 
             lawnmoverService.Edit(lawnmover, keyToModify, newValue);
         }

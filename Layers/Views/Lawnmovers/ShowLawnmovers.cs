@@ -10,7 +10,7 @@ namespace Layers.Views.Lawnmovers
             foreach (var lawnmover in lawnmovers)
             {
                 Console.WriteLine("Id: " + lawnmover.Id);
-                Console.WriteLine("Id: " + lawnmover.Model);
+                Console.WriteLine("Model: " + lawnmover.Model);
                 if (!lawnmover.Available)
                 {
                     Console.WriteLine("Rented on: " + lawnmover.DateOfRent);
