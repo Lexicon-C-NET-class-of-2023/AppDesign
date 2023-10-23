@@ -17,7 +17,7 @@ namespace Layers.Controllers
 
         public void Index()
         {
-            char response = Menu.LawnmoverMenu();
+            char response = Menu.Lawnmover.Index();
 
             (response switch
             {
@@ -30,7 +30,6 @@ namespace Layers.Controllers
             })();
         }
 
-
         public void ViewAllLawnMovers()
         {
             var response = lawnmoverService.GetAll();
@@ -42,8 +41,6 @@ namespace Layers.Controllers
             var response = lawnmoverService.GetAvailable();
             ShowLawnmovers.ShowAvailableLawnmovers(response);
         }
-
-
 
         public void CreateNewLawnmover()
         {
@@ -76,13 +73,13 @@ namespace Layers.Controllers
             List<string> temp = new List<string>();
             foreach (var a in lawnmovers) temp.Add($"{a.Id}. {a.Model}");
             string[] array = temp.Select(i => i.ToString()).ToArray();
-            int id = Menu.ChooseLawnmoverToModifyMenu(array);
+            int id = Menu.Lawnmover.ChooseWhichToModifyMenu(array);
 
             //Get One by id
             var lawnmover = lawnmoverService.GetOne(id);
 
             //Menu choosing what to modify
-            char keyToModify = Menu.ModifyLawnmoverMenu();
+            char keyToModify = Menu.Lawnmover.ModifyMenu();
 
             //view that prompts for new values
             string newValue = ModifyLawnmover.Property(keyToModify);
@@ -94,11 +91,11 @@ namespace Layers.Controllers
         {
             var lawnmovers = lawnmoverService.GetAll();
 
-            //Dynamically creates alternatives to chooose from in Menu.ChooseLawnmoverToDeleteMenu
+            //Dynamically creates alternatives to chooose from in Menu.Lawnmover.ChooseWhichToDeleteMenu
             List<string> temp = new List<string>();
             foreach (var a in lawnmovers) temp.Add($"{a.Id}. {a.Model}");
             string[] array = temp.Select(i => i.ToString()).ToArray();
-            int id = Menu.ChooseLawnmoverToDeleteMenu(array);
+            int id = Menu.Lawnmover.ChooseWhichToDeleteMenu(array);
 
             //Get One by id
             var lawnmover = lawnmoverService.GetOne(id);

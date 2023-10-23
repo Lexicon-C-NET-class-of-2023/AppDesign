@@ -16,7 +16,7 @@ namespace Layers.Controllers
 
         public void Index()
         {
-            char response = Menu.AccountMenu();
+            char response = Menu.Account.Index();
 
             (response switch
             {
@@ -61,7 +61,6 @@ namespace Layers.Controllers
         }
 
         public void ModifyAnAccount()
-
         {
             List<Models.Account> accounts = accountService.GetAll();
 
@@ -69,14 +68,14 @@ namespace Layers.Controllers
             List<string> temp = new List<string>();
             foreach (var a in accounts) temp.Add($"{a.Id}. {a.FirstName}");
             string[] array = temp.Select(i => i.ToString()).ToArray();
-            char chosen = Menu.ChooseAccountToModifyMenu(array);
+            char chosen = Menu.Account.ChooseWhichToModifyMenu(array);
             int id = chosen - '0';
 
             //Get One by id
             var account = accountService.GetOne(id);
 
             //Menu choosing what to modify
-            char keyToModify = Menu.ModifyAccountMenu();
+            char keyToModify = Menu.Account.ModifyMenu();
 
             //view that prompts for new values
             string newValue = ModifyAccount.Property(keyToModify);
@@ -92,7 +91,7 @@ namespace Layers.Controllers
             List<string> temp = new List<string>();
             foreach (var a in accounts) temp.Add($"{a.Id}. {a.FirstName}");
             string[] array = temp.Select(i => i.ToString()).ToArray();
-            char chosen = Menu.ChooseAccountToDeleteMenu(array);
+            char chosen = Menu.Account.ChooseWhichToDeleteMenu(array);
             int id = chosen - '0';
 
             //Get One by id

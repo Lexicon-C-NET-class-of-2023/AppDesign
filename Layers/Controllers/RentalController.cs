@@ -21,7 +21,7 @@ namespace Layers.Controllers
 
         public void Index()
         {
-            char response = Menu.RentalMenu();
+            char response = Menu.Rental.Index();
 
             (response switch
             {
@@ -50,7 +50,7 @@ namespace Layers.Controllers
 
             foreach (var a in accounts) listOfAccountOptions.Add($"{a.Id}. {a.FirstName}");
             string[] arrayOfAccountOptions = listOfAccountOptions.Select(i => i.ToString()).ToArray();
-            char chosenAccount = Menu.ChooseAccountThatWichToRentMenu(arrayOfAccountOptions);
+            char chosenAccount = Menu.Rental.ChooseAccountMenu(arrayOfAccountOptions);
             int accountId = chosenAccount - '0';
 
             //Get One by id
@@ -67,7 +67,7 @@ namespace Layers.Controllers
                 i++;
             }
             string[] arrayOfLawnmoverOptions = listOfLawnmoverOptions.Select(i => i.ToString()).ToArray();
-            int lawnmoverIndex = Menu.ChooseLawnmoverToRentMenu(arrayOfLawnmoverOptions) - 1;
+            int lawnmoverIndex = Menu.Rental.ChooseLawnmoverMenu(arrayOfLawnmoverOptions) - 1;
 
             int lawnmoverId = listOfAvailableLawnmovers[lawnmoverIndex].Id;
 
@@ -76,7 +76,7 @@ namespace Layers.Controllers
             Lawnmover lawnmover = lawnmoverService.GetOne(lawnmoverId);
 
             //view to choose period to rent
-            var period = Menu.ChooseLawnmoverPeriod();
+            var period = Menu.Rental.ChoosePeriod();
             Console.WriteLine("Period" + period);
 
             //view to choose how long
@@ -104,14 +104,14 @@ namespace Layers.Controllers
             List<string> temp = new List<string>();
             foreach (var a in rentals) temp.Add($"{a.Id}. {a.LownMoverId}");            //!!! Not correct yet
             string[] array = temp.Select(i => i.ToString()).ToArray();
-            char chosen = Menu.ChooseRentalToModifyMenu(array);
+            char chosen = Menu.Rental.ChooseWhichToModifyMenu(array);
             int id = chosen - '0';
 
             //Get One by id
             var rental = rentalService.GetOne(id);
 
             //Menu choosing what to modify
-            char keyToModify = Menu.ModifyRentalMenu();
+            char keyToModify = Menu.Rental.ModifyMenu();
 
             //view that prompts for new values
             string newValue = ModifyRental.Property(keyToModify);
@@ -132,9 +132,8 @@ namespace Layers.Controllers
                 temp.Add($"{a.Id}. Hired by: {account.FirstName} {account.LastName}");
             }
 
-            //!!! Not correct yet
             string[] array = temp.Select(i => i.ToString()).ToArray();
-            char chosen = Menu.ChooseRentalToDeleteMenu(array);
+            char chosen = Menu.Rental.ChooseWhichToDeleteMenu(array);
             int id = chosen - '0';
 
             //Get One by id
