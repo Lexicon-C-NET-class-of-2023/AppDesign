@@ -1,14 +1,7 @@
 ﻿using Layers.Services;
 using Layers.Views;
 using Layers.Views.Accounts;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Layers.Controllers
 {
@@ -23,7 +16,7 @@ namespace Layers.Controllers
 
         public void Index()
         {
-            char response = Menu.AccountMenu();
+            char response = Menu.Account.Index();
 
             (response switch
             {
@@ -35,13 +28,11 @@ namespace Layers.Controllers
             })();
         }
 
-
         public void ViewAllAccounts()
         {
             var response = accountService.GetAll();
             ShowAccounts.ShowAllAccounts(response);
         }
-
 
         public void CreateNewAccount() //equivalent to url
         {
@@ -69,33 +60,30 @@ namespace Layers.Controllers
             accountService.Add(firstName, lastName, age, city, zipCode, street, phoneNr, email);
         }
 
-
         public void ModifyAnAccount()
-
         {
-            var accounts = accountService.GetAll();
+            List<Models.Account> accounts = accountService.GetAll();
 
             //Dynamically creates alternatives to chooose from in Menu.ChooseAccountToModifyMenu
             List<string> temp = new List<string>();
             foreach (var a in accounts) temp.Add($"{a.Id}. {a.FirstName}");
             string[] array = temp.Select(i => i.ToString()).ToArray();
-            char chosen = Menu.ChooseAccountToModifyMenu(array);
+            char chosen = Menu.Account.Modify.ChooseWhichMenu(array);
             int id = chosen - '0';
 
             //Get One by id
             var account = accountService.GetOne(id);
 
-
             //Menu choosing what to modify
-            char keyToModify = Menu.ModifyAccountMenu();
+            char keyToModify = Menu.Account.Modify.ChoosePropertyMenu();
 
             //view that prompts for new values
-            string newValue = ModifyAccount.Property(keyToModify);
+            string newValue = Menu.Account.Modify.NewValueMenu(keyToModify);
+
+            //string newValue = ModifyAccount.Property(keyToModify);
 
             accountService.Edit(account, keyToModify, newValue);
         }
-
-
 
         public void DeleteAnAccount()
         {
@@ -105,7 +93,7 @@ namespace Layers.Controllers
             List<string> temp = new List<string>();
             foreach (var a in accounts) temp.Add($"{a.Id}. {a.FirstName}");
             string[] array = temp.Select(i => i.ToString()).ToArray();
-            char chosen = Menu.ChooseAccountToDeleteMenu(array);
+            char chosen = Menu.Account.ChooseWhichToDeleteMenu(array);
             int id = chosen - '0';
 
             //Get One by id

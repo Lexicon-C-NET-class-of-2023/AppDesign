@@ -4,9 +4,13 @@ using Layers.Views;
 Menu.MainMenu();
 
 
-//var accounts = myAccountRepo.FileRead();
 
-//foreach (var item in accounts) Console.WriteLine("In Program.cs " + item.FirstName);
+
+
+//Todo 
+//Populate DateTo in RentalService on created Rental
+//Rental modify
+//Populate lawnmover with "DateOfRent" & "DateOfReturn" on "created rental"
 
 
 

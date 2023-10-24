@@ -1,4 +1,9 @@
-﻿namespace Layers.Models
+﻿using Layers.Repositories;
+using System.IO;
+using System.Reflection.Emit;
+using System.Security.Principal;
+
+namespace Layers.Models
 {
     public class RentalService
     {
@@ -9,20 +14,29 @@
         }
 
         public List<Rental> GetAll() => rentalRepo.ReadAll();
+        public Rental GetOne(int id) => rentalRepo.ReadOne(id);    
+        public void Edit(Rental rental, char keyToModify, string newValue) => rentalRepo.Update(rental, keyToModify, newValue);
 
-        public void Edit(Rental rental)
+        public void Remove(Rental rental) => rentalRepo.Delete(rental);
+
+
+        //public bool Add(int Id, int RentedByAccountId, int lownMoverId , string Period,  string Inventory)        {
+        public bool Add(int accountId, int lawnmoverId, char period, int time)
         {
+            string chosen = period switch
+            {
+                '1' => "day",
+                '2' => "week",
+                _ => ""
+            };
 
-        }
+            Rental rental = new Rental();
+            rental.HowLong = time;
+            rental.RentedByAccountId = accountId;
+            rental.LownMoverId = lawnmoverId;
+            rental.Period = chosen;
 
-        public void Remove(int id)
-        {
-
-        }
-
-        public bool Add(string model, bool available, int pricePerDay, int pricePerWeek, DateTime dateOfRent, DateTime dateOfReturn)
-        {
-
+            rentalRepo.Create(rental);
 
             return true;
         }

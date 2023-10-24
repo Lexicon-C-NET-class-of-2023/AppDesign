@@ -23,28 +23,28 @@ namespace Layers.Views.Accounts
 
             do
             {
-                Console.WriteLine("Please enter your firstname:");
+                Console.WriteLine("\n\nPlease enter your firstname:");
                 firstName = Console.ReadLine();
 
-                Console.WriteLine("Please enter your lastname:");
+                Console.WriteLine("\nPlease enter your lastname:");
                 lastName = Console.ReadLine();
 
-                Console.WriteLine("Please enter your age:");
+                Console.WriteLine("\nPlease enter your age:");
                 age = Console.ReadLine();
 
-                Console.WriteLine("Please enter your city:");
+                Console.WriteLine("\nPlease enter your city:");
                 city = Console.ReadLine();
 
-                Console.WriteLine("Please enter your zip code:");
+                Console.WriteLine("\nPlease enter your zip code:");
                 zipCode = Console.ReadLine();
 
-                Console.WriteLine("Please enter your street:");
+                Console.WriteLine("\nPlease enter your street:");
                 street = Console.ReadLine();
 
-                Console.WriteLine("Please enter your phone number:");
+                Console.WriteLine("\nPlease enter your phone number:");
                 phoneNr = Console.ReadLine();
 
-                Console.WriteLine("Please enter your email:");
+                Console.WriteLine("\nPlease enter your email:");
                 email = Console.ReadLine();
 
                 if (firstName != "" || lastName != "" || age != "" || city != "" || zipCode != "" || street != "" || phoneNr != "" || email != "") invalid = false;

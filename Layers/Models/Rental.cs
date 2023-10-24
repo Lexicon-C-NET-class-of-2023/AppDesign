@@ -8,10 +8,12 @@ namespace Layers.Models
 {
     public class Rental
     {
-        public string RentedBy { get; set; }
+        public int Id { get; set; }
+        public int RentedByAccountId { get; set; }
+        public int LownMoverId { get; set; }
         public string Period { get; set; }
-        public int Id { get; set; } 
-        public string lownMoverId { get; set; } 
-        
+        public string FromDate { get; set; }
+        public int HowLong { get; set; }    
+        public string ToDate { get; set; }
     }
 }
