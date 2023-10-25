@@ -2,13 +2,13 @@
 using Layers.Views;
 using Layers.Views.Accounts;
 
-
 namespace Layers.Controllers
 {
-    public class AccountController
+    internal class AccountsController
     {
         private AccountService accountService;
-        public AccountController()
+
+        public AccountsController()
         {
             accountService = new AccountService();
         }
@@ -46,6 +46,7 @@ namespace Layers.Controllers
             string street = temp[5];
             string phoneNr = temp[6];
             string email = temp[7];
+            string type = temp[8];
 
             int age = 0;
             try
@@ -57,12 +58,12 @@ namespace Layers.Controllers
 
             }
 
-            accountService.Add(firstName, lastName, age, city, zipCode, street, phoneNr, email);
+            accountService.Add(firstName, lastName, age, city, zipCode, street, phoneNr, email, type);
         }
 
         public void ModifyAnAccount()
         {
-            List<Models.Account> accounts = accountService.GetAll();
+            List<dynamic> accounts = accountService.GetAll();
 
             //Dynamically creates alternatives to chooose from in Menu.ChooseAccountToModifyMenu
             List<string> temp = new List<string>();
@@ -72,15 +73,13 @@ namespace Layers.Controllers
             int id = chosen - '0';
 
             //Get One by id
-            var account = accountService.GetOne(id);
+            var account = accounts.Where(f => f.Id == id).ToList()[0];
 
             //Menu choosing what to modify
             char keyToModify = Menu.Account.Modify.ChoosePropertyMenu();
 
             //view that prompts for new values
             string newValue = Menu.Account.Modify.NewValueMenu(keyToModify);
-
-            //string newValue = ModifyAccount.Property(keyToModify);
 
             accountService.Edit(account, keyToModify, newValue);
         }
@@ -97,7 +96,7 @@ namespace Layers.Controllers
             int id = chosen - '0';
 
             //Get One by id
-            var account = accountService.GetOne(id);
+            var account = accounts.Where(f => f.Id == id).ToList()[0];
 
             accountService.Remove(account);
         }

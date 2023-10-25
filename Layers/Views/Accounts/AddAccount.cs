@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Layers.Views.Accounts
 {
-    public static class AddAccount
+    internal class AddAccount
     {
         public static string NewAccount()
         {
@@ -19,6 +18,7 @@ namespace Layers.Views.Accounts
             string street;
             string phoneNr;
             string email;
+            string type;
             bool invalid = true;
 
             do
@@ -46,13 +46,16 @@ namespace Layers.Views.Accounts
 
                 Console.WriteLine("\nPlease enter your email:");
                 email = Console.ReadLine();
+                
+                Console.WriteLine("\nPlease enter your type:");
+                type = Console.ReadLine();
 
-                if (firstName != "" || lastName != "" || age != "" || city != "" || zipCode != "" || street != "" || phoneNr != "" || email != "") invalid = false;
+                if (firstName != "" || lastName != "" || age != "" || city != "" || zipCode != "" || street != "" || phoneNr != "" || email != "" || type != "") invalid = false;
                 //if (firstName != "" || age != "") invalid = false;
             } while (invalid);
 
             //return $"{firstName}, {age}";
-            return $"{firstName},{lastName} ,{age},{city} ,{zipCode} ,{street} ,{phoneNr} ,{email}";
+            return $"{firstName},{lastName},{age},{city},{zipCode},{street},{phoneNr},{email},{type}";
         }
     }
 }

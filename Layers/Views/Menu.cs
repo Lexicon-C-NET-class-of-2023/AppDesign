@@ -12,8 +12,8 @@ namespace Layers.Views
 
             if (choice == '1')
             {
-                AccountController myAccountController = new AccountController();
-                myAccountController.Index();
+                AccountsController myAccountsController = new AccountsController();
+                myAccountsController.Index();
             }
             if (choice == '2')
             {
@@ -25,8 +25,12 @@ namespace Layers.Views
                 LawnmoverController myLawnmoverController = new LawnmoverController();
                 myLawnmoverController.Index();
             }
+
             else return;
         }
+
+
+
 
 
 
@@ -57,7 +61,8 @@ namespace Layers.Views
                         "5. Modify Zip code",
                         "6. Modify Street",
                         "7. Modify Phonenumber",
-                        "8. Modify Email"
+                        "8. Modify Email",
+                        "9. Modify Type"
                     };
 
                     return GetUserInput("\n\n\nUpdate Account Options", alternatives);
@@ -75,6 +80,7 @@ namespace Layers.Views
                         '6' => "Street",
                         '7' => "Phone number",
                         '8' => "Email",
+                        '9' => "Type",
                         _ => ""
                     };
 
@@ -85,7 +91,6 @@ namespace Layers.Views
 
             public static char ChooseWhichToDeleteMenu(string[] alternatives) => GetUserInput("\n\n\nDelete Account Options", alternatives);
         }
-
 
 
         public static class Rental
@@ -113,6 +118,7 @@ namespace Layers.Views
 
                 return GetUserInput("\n\n\nChoose Period", alternatives);
             }
+
 
 
             public static class Modify

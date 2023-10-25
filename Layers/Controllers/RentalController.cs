@@ -1,8 +1,8 @@
 ﻿using Layers.Models;
 using Layers.Services;
 using Layers.Views;
-using Layers.Views.Accounts;
 using Layers.Views.Rentals;
+using static Layers.Views.Menu;
 
 namespace Layers.Controllers
 {
@@ -41,8 +41,8 @@ namespace Layers.Controllers
 
         public void RegisterNewRental() //equivalent to url
         {
-            List<Account> accounts = accountService.GetAll();
-            List<Lawnmover> listOfAvailableLawnmovers = lawnmoverService.GetAvailable();
+            List<dynamic> accounts = accountService.GetAll();
+            List<Models.Lawnmover> listOfAvailableLawnmovers = lawnmoverService.GetAvailable();
 
 
             //Accounts to choose from
@@ -53,8 +53,13 @@ namespace Layers.Controllers
             char chosenAccount = Menu.Rental.ChooseAccountMenu(arrayOfAccountOptions);
             int accountId = chosenAccount - '0';
 
+
             //Get One by id
-            Account account = accountService.GetOne(accountId);
+            var account = accounts.Where(f => f.Id == accountId).ToList()[0];
+           
+
+
+
 
             //Available lawnmovers to choose from
             List<string> listOfLawnmoverOptions = new List<string>();
@@ -73,7 +78,7 @@ namespace Layers.Controllers
 
 
             //Get One by id might not belog here
-            Lawnmover lawnmover = lawnmoverService.GetOne(lawnmoverId);
+            Models.Lawnmover lawnmover = lawnmoverService.GetOne(lawnmoverId);
 
             //view to choose period to rent
             var period = Menu.Rental.ChoosePeriod();
@@ -121,14 +126,23 @@ namespace Layers.Controllers
 
         public void DeleteRental()
         {
+
             var rentals = rentalService.GetAll();
+            List<dynamic> accounts = accountService.GetAll();
+
 
             //Dynamically creates alternatives to chooose from in Menu.ChooseAccountToModifyMenu
 
             List<string> temp = new List<string>();
             foreach (var a in rentals)
             {
-                var account = accountService.GetOne(a.RentedByAccountId);
+                //var account = accountService.GetOne(a.RentedByAccountId);
+
+
+
+                var account = accounts.Where(f => f.Id == a.RentedByAccountId).ToList()[0];
+
+
                 temp.Add($"{a.Id}. Hired by: {account.FirstName} {account.LastName}");
             }
 
