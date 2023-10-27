@@ -1,13 +1,12 @@
-﻿using Layers.Models;
-using Layers.Repositories;
-using Layers.Services;
-using Layers.Views;
+﻿using Layers.Views;
 Menu.MainMenu();
 
 
+//var mongo = new LawnmoverRepo();
 
+//var list = mongo.ReadAll();
 
-
+//Console.WriteLine( list);
 
 
 

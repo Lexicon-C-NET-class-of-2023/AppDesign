@@ -31,6 +31,7 @@ namespace Layers.Models
         {
             int newId = 1;
             List<Rental> rentals = FileRead();
+            List<dynamic> lawnmovers = lawnmoverRepo.ReadAll();
 
             if (rentals.Count > 0) newId = rentals.OrderBy(a => a.Id).Last().Id + 1;
             rental.Id = newId;
@@ -45,7 +46,7 @@ namespace Layers.Models
 
 
             //Modify properties on the Lawnmover object
-            Lawnmover lawnmover = lawnmoverRepo.ReadOne(rental.LownMoverId);
+            var lawnmover = lawnmovers.Where(f => f.Id == rental.LownMoverId).ToList()[0];
             lawnmoverRepo.Update(lawnmover, '1', false.ToString());
             lawnmoverRepo.Update(lawnmover, '5', date);
             lawnmoverRepo.Update(lawnmover, '6', rental.Period == "day" ? now.AddDays(rental.HowLong).ToString() : now.AddDays(rental.HowLong * 7).ToString());
@@ -119,9 +120,11 @@ namespace Layers.Models
         public bool Delete(Rental rental)
         {
             List<Rental> rentals = FileRead();
+            List<dynamic> lawnmovers = lawnmoverRepo.ReadAll();
+
 
             //Modify availibility on Lawnmover object
-            Lawnmover lawnmover = lawnmoverRepo.ReadOne(rental.LownMoverId);
+            var lawnmover = lawnmovers.Where(f => f.Id == rental.LownMoverId).ToList()[0];
             lawnmoverRepo.Update(lawnmover, '1', true.ToString());
             lawnmoverRepo.Update(lawnmover, '5', "");
             lawnmoverRepo.Update(lawnmover, '6', "");

@@ -42,7 +42,7 @@ namespace Layers.Controllers
         public void RegisterNewRental() //equivalent to url
         {
             List<dynamic> accounts = accountService.GetAll();
-            List<Models.Lawnmover> listOfAvailableLawnmovers = lawnmoverService.GetAvailable();
+            List<dynamic> listOfAvailableLawnmovers = lawnmoverService.GetAvailable();
 
 
             //Accounts to choose from
@@ -78,7 +78,8 @@ namespace Layers.Controllers
 
 
             //Get One by id might not belog here
-            Models.Lawnmover lawnmover = lawnmoverService.GetOne(lawnmoverId);
+            //Models.Lawnmover lawnmover = lawnmoverService.GetOne(lawnmoverId);
+
 
             //view to choose period to rent
             var period = Menu.Rental.ChoosePeriod();

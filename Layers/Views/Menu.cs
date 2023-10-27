@@ -176,6 +176,16 @@ namespace Layers.Views
                 return GetUserInput("\n\n\nLawnmover Options", alternatives);
             }
 
+            public static char ChooseType()
+            {
+                string[] alternatives = {
+                    "1. Petrol",
+                    "2. Electric"
+                };
+
+                return GetUserInput("\n\n\nLawnmover Type", alternatives);
+            }
+
             public static class Modify
             {
                 public static int ChooseWhichMenu(string[] alternatives) => GetUserInputDblDigit("\n\n\nUpdate Lawnmover Options", alternatives);

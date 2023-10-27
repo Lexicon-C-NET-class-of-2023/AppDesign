@@ -1,13 +1,11 @@
 ﻿using Layers.Models;
-using System.Security.Principal;
 using System.Text.Json;
 
 namespace Layers.Repositories
 {
-
-
     internal class LawnmoverRepo
     {
+
         private string path;
 
         public LawnmoverRepo()
@@ -27,52 +25,74 @@ namespace Layers.Repositories
         }
 
 
-        public Lawnmover Create(Lawnmover lawnmover)
+        //  CREATE
+        public Lawnmover.LanwmoverPetrol Create(Lawnmover.LanwmoverPetrol lawnmover)
         {
-            List<Lawnmover> lawnmovers = FileRead();
+            List<dynamic> lawnmovers = FileRead();
+
+            int newId = lawnmovers.OrderBy(a => a.Id).Last().Id + 1;   //System.InvalidOperationException Sequence contains no elements
+            lawnmover.Id = newId;
+            lawnmover.Available = true;
+
+            lawnmovers.Add(lawnmover);
+            FileMutations(lawnmovers);
+            return lawnmover;
+        }
+        public Lawnmover.LawnmoverElectric Create(Lawnmover.LawnmoverElectric lawnmover)
+        {
+            List<dynamic> lawnmovers = FileRead();
             int newId = lawnmovers.OrderBy(a => a.Id).Last().Id + 1;
             lawnmover.Id = newId;
             lawnmover.Available = true;
-            //lawnmover.DateOfRent = dateOfRent;  //set from rental findOneByid
-            //lawnmover.DateOfReturn = dateOfReturn;  //set from rental findOneByid
 
             lawnmovers.Add(lawnmover);
             FileMutations(lawnmovers);
             return lawnmover;
         }
 
-        public List<Lawnmover> ReadAll() => FileRead();
-        public List<Lawnmover> ReadAvailable()
+
+        //  GET ALL
+        public List<dynamic> ReadAll() => FileRead();
+
+        //  GET AVAILABLE
+        public List<dynamic> ReadAvailable()
         {
             //Fetching the List from the DB
-            List<Lawnmover> lawnmovers = FileRead();
-            List<Lawnmover> available = lawnmovers.Where(a => a.Available == true).ToList();
+            List<dynamic> lawnmovers = FileRead();
+            List<dynamic> available = lawnmovers.Where(a => a.Available == true).ToList();
 
             return available;
         }
 
-        public Lawnmover ReadOne(int id)
+        //  GET ONE
+        public Lawnmover.LanwmoverPetrol ReadOnePetrol(int id)
         {
             //Fetching the List from the DB
-            List<Lawnmover> lawnmovers = FileRead();
+            List<dynamic> lawnmovers = FileRead();
             //Filtering by id
-            Lawnmover lawnmover = lawnmovers.Where(a => a.Id == id).ToList()[0];
+            Lawnmover.LanwmoverPetrol lawnmover = lawnmovers.Where(a => a.Id == id).ToList()[0];
+            return lawnmover;
+        }
+        public Lawnmover.LawnmoverElectric ReadOneElectric(int id)
+        {
+            //Fetching the List from the DB
+            List<dynamic> lawnmovers = FileRead();
+            //Filtering by id
+            Lawnmover.LawnmoverElectric lawnmover = lawnmovers.Where(a => a.Id == id).ToList()[0];
             return lawnmover;
         }
 
 
 
 
-
-
-        public Lawnmover Update(Lawnmover lawnmover, char keyToModify, string newValue)
-
+        //  UPDATE
+        public Lawnmover.LanwmoverPetrol Update(Lawnmover.LanwmoverPetrol lawnmover, char keyToModify, string newValue)
         {
             int price = 0;
 
             if (keyToModify == '1')
             {
-                lawnmover.Available = Convert.ToBoolean(newValue);
+                lawnmover.Available = Convert.ToBoolean(newValue); //try catch 
             }
             else if (keyToModify == '3')
             {
@@ -93,8 +113,43 @@ namespace Layers.Repositories
                 _ => ""
             };
 
-            List<Lawnmover> lawnmovers = FileRead();
-            List<Lawnmover> newList = lawnmovers.Where(a => a.Id != lawnmover.Id).ToList();
+            List<dynamic> lawnmovers = FileRead();
+            List<dynamic> newList = lawnmovers.Where(a => a.Id != lawnmover.Id).ToList();
+
+            newList.Add(lawnmover);
+
+            FileMutations(newList);
+            return lawnmover;
+        }
+        public Lawnmover.LawnmoverElectric Update(Lawnmover.LawnmoverElectric lawnmover, char keyToModify, string newValue)
+        {
+            int price = 0;
+
+            if (keyToModify == '1')
+            {
+                lawnmover.Available = Convert.ToBoolean(newValue); //try catch 
+            }
+            else if (keyToModify == '3')
+            {
+                price = int.Parse(newValue);
+                lawnmover.PricePerDay = price;
+            }
+            else if (keyToModify == '4')
+            {
+                price = int.Parse(newValue);
+                lawnmover.PricePerWeek = price;
+            }
+
+            string key = keyToModify switch
+            {
+                '2' => lawnmover.Model = newValue,
+                '5' => lawnmover.DateOfRent = newValue,
+                '6' => lawnmover.DateOfReturn = newValue,
+                _ => ""
+            };
+
+            List<dynamic> lawnmovers = FileRead();
+            List<dynamic> newList = lawnmovers.Where(a => a.Id != lawnmover.Id).ToList();
 
             newList.Add(lawnmover);
 
@@ -102,29 +157,28 @@ namespace Layers.Repositories
             return lawnmover;
         }
 
-
-
-
-
-
-        public bool Delete(Lawnmover lawnmover)
+        //  DELETE
+        public bool Delete(dynamic lawnmover)
         {
-            List<Lawnmover> lawnmovers = FileRead();
-            List<Lawnmover> newList = lawnmovers.Where(a => a.Id != lawnmover.Id).ToList();
+            List<dynamic> lawnmovers = FileRead();
+            List<dynamic> newList = lawnmovers.Where(a => a.Id != lawnmover.Id).ToList();
 
             FileMutations(newList);
             return true;
         }
 
-        public bool FileMutations(List<Lawnmover> lawnmovers)
+
+
+
+        public bool FileMutations(List<dynamic> lawnmovers)
         {
-            List<Lawnmover> sortedLawnmoverList = lawnmovers.OrderBy(q => q.Id).ToList();
+            List<dynamic> sortedLawnmoverList = lawnmovers.OrderBy(q => q.Id).ToList();
             string value = JsonSerializer.Serialize(sortedLawnmoverList);
             File.WriteAllText(path, value);
             return true;
         }
 
-        public List<Lawnmover> FileRead()
+        public List<dynamic> FileRead()
         {
             string values = File.ReadAllText(path);
             //Console.WriteLine("The original JSON" + values);
@@ -142,8 +196,51 @@ namespace Layers.Repositories
                 Console.WriteLine(ex.Message);
             }
 
-            List<Lawnmover> lawnmovers = JsonSerializer.Deserialize<List<Lawnmover>>(values);
-            return lawnmovers;
+            List<dynamic> listOfDynamicObjects = JsonSerializer.Deserialize<List<dynamic>>(values);
+            List<dynamic> listOfLawnmoverTypes = new List<dynamic>();
+
+            foreach (var item in listOfDynamicObjects)
+            {
+                var temporaryObject = JsonSerializer.Deserialize<Lawnmover.Temp>(item);
+
+                if (temporaryObject.Type == "petrol")
+                {
+                    Lawnmover.LanwmoverPetrol petrolLawnmover = new Lawnmover.LanwmoverPetrol()
+                    {
+                        Id = temporaryObject.Id,
+                        Model = temporaryObject.Model,
+                        Available = temporaryObject.Available,
+                        PricePerDay = temporaryObject.PricePerDay,
+                        PricePerWeek = temporaryObject.PricePerWeek,
+                        DateOfRent = temporaryObject.DateOfRent,
+                        DateOfReturn = temporaryObject.DateOfReturn,
+                        Type = temporaryObject.Type,
+                        Emission = temporaryObject.Emission,
+                    };
+
+                    listOfLawnmoverTypes.Add(petrolLawnmover);
+                }
+
+                if (temporaryObject.Type == "electric")
+                {
+                    Lawnmover.LawnmoverElectric electricLawnmover = new Lawnmover.LawnmoverElectric()
+                    {
+                        Id = temporaryObject.Id,
+                        Model = temporaryObject.Model,
+                        Available = temporaryObject.Available,
+                        PricePerDay = temporaryObject.PricePerDay,
+                        PricePerWeek = temporaryObject.PricePerWeek,
+                        DateOfRent = temporaryObject.DateOfRent,
+                        DateOfReturn = temporaryObject.DateOfReturn,
+                        Type = temporaryObject.Type,
+                        BatteryEffect = temporaryObject.BatteryEffect,
+                    };
+
+                    listOfLawnmoverTypes.Add(electricLawnmover);
+                }
+            }
+
+            return listOfLawnmoverTypes;
         }
     }
 }

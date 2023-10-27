@@ -2,7 +2,9 @@
 using Layers.Repositories;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,33 +20,64 @@ namespace Layers.Services
         }
 
 
-        public List<Lawnmover> GetAll() => lawnmoverRepo.ReadAll();
-        public List<Lawnmover> GetAvailable() => lawnmoverRepo.ReadAvailable();
-        
+        // GET ALL
+        public List<dynamic> GetAll() => lawnmoverRepo.ReadAll();
 
 
-        public Lawnmover GetOne(int id) => lawnmoverRepo.ReadOne(id);
-        public void Edit(Lawnmover lawnmover, char keyToModify, string newValue) => lawnmoverRepo.Update(lawnmover, keyToModify, newValue);
-        public void Remove(Lawnmover lawnmover) => lawnmoverRepo.Delete(lawnmover);
+        // GET AVAILABLE
+        public List<dynamic> GetAvailable() => lawnmoverRepo.ReadAvailable();
 
 
-        public void Add(string model, int pricePerDay, int pricePerWeek)
+        // GET AVAILABLE
+        public Lawnmover.LanwmoverPetrol GetOnePetrol(int id) => lawnmoverRepo.ReadOnePetrol(id);
+        public Lawnmover.LawnmoverElectric GetOneElectric(int id) => lawnmoverRepo.ReadOneElectric(id);
+
+
+        //  EDIT
+        public void Edit(Lawnmover.LanwmoverPetrol lawnmover, char keyToModify, string newValue) => lawnmoverRepo.Update(lawnmover, keyToModify, newValue);
+        public void Edit(Lawnmover.LawnmoverElectric lawnmover, char keyToModify, string newValue) => lawnmoverRepo.Update(lawnmover, keyToModify, newValue);
+
+
+        //  DELETE
+        public void Remove(Lawnmover.LanwmoverPetrol lawnmover) => lawnmoverRepo.Delete(lawnmover);
+        public void Remove(Lawnmover.LawnmoverElectric lawnmover) => lawnmoverRepo.Delete(lawnmover);
+
+
+        //  CREATE
+        public void Add(string model, int pricePerDay, int pricePerWeek, char type)
         {
-            Lawnmover lawnmover = new Lawnmover();
-            lawnmover.Model = model;
-            lawnmover.PricePerDay = pricePerDay;
-            lawnmover.PricePerWeek = pricePerWeek;
 
-            lawnmoverRepo.Create(lawnmover);
+            // might change from type to emission/batteryeffect
+            if (type == '1')
+            {
+                Lawnmover.LanwmoverPetrol lawnmover = new Lawnmover.LanwmoverPetrol()
+                {
+                    Model = model,
+                    PricePerDay = pricePerDay,
+                    PricePerWeek = pricePerWeek,
+                    Type = "petrol"
+                };
+
+                //int instead?----------------------------------------
+                //lawnmover.Emission = "862 g/kWh";
+
+                lawnmoverRepo.Create(lawnmover);
+            }
+            if (type == '2')
+            {
+                Lawnmover.LawnmoverElectric lawnmover = new Lawnmover.LawnmoverElectric()
+                {
+                    Model = model,
+                    PricePerDay = pricePerDay,
+                    PricePerWeek = pricePerWeek,
+                    Type = "electric"
+                };
+
+                //int instead?----------------------------------------
+                //lawnmover.BatteryEffect = "75,6 or 146 Wh";
+
+                lawnmoverRepo.Create(lawnmover);
+            }
         }
-
-
-
-
-
-
-
-
-
     }
 }

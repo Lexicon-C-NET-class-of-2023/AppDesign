@@ -44,6 +44,8 @@ namespace Layers.Controllers
 
         public void CreateNewLawnmover()
         {
+            char type = Menu.Lawnmover.ChooseType();
+
             string response = AddLawnmover.NewLawnmover();
 
             string[] temp = response.Split(',');
@@ -62,12 +64,12 @@ namespace Layers.Controllers
                 Console.WriteLine(ex.Message);
             }
 
-            lawnmoverService.Add(model, pricePerDay, pricePerWeek);
+            lawnmoverService.Add(model, pricePerDay, pricePerWeek, type);
         }
 
         public void ModifyALawnmover()
         {
-            List<Models.Lawnmover> lawnmovers = lawnmoverService.GetAll();
+            List<dynamic> lawnmovers = lawnmoverService.GetAll();
 
             //Dynamically creates alternatives to chooose from in Menu.ChooseAccountToModifyMenu
             List<string> temp = new List<string>();
@@ -76,7 +78,8 @@ namespace Layers.Controllers
             int id = Menu.Lawnmover.Modify.ChooseWhichMenu(array);
 
             //Get One by id
-            var lawnmover = lawnmoverService.GetOne(id);
+            var lawnmover = lawnmovers.Where(f => f.Id == id).ToList()[0];
+
 
             //Menu choosing what to modify
             char keyToModify = Menu.Lawnmover.Modify.ChoosePropertyMenu();
@@ -98,7 +101,7 @@ namespace Layers.Controllers
             int id = Menu.Lawnmover.ChooseWhichToDeleteMenu(array);
 
             //Get One by id
-            var lawnmover = lawnmoverService.GetOne(id);
+            var lawnmover = lawnmovers.Where(f => f.Id == id).ToList()[0];
 
             lawnmoverService.Remove(lawnmover);
         }
