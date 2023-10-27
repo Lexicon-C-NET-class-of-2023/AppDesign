@@ -17,11 +17,6 @@ namespace Layers.Services
         public List<dynamic> GetAll() => accountRepo.ReadAll();
 
 
-        //  GET ONE
-        public Account.AccountBasic GetOneBasic(int id) => accountRepo.ReadOneBasic(id);
-        public Account.AccountPrime GetOnePrime(int id) => accountRepo.ReadOnePrime(id);
-
-
         //  EDIT
         public void Edit(Account.AccountBasic account, char keyToModify, string newValue) => accountRepo.Update(account, keyToModify, newValue);
         public void Edit(Account.AccountPrime account, char keyToModify, string newValue) => accountRepo.Update(account, keyToModify, newValue);

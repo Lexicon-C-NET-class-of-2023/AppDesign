@@ -77,21 +77,6 @@ namespace Layers.Repositories
         //  GET ALL
         public List<dynamic> ReadAll() => FileRead();
 
-        //  GET ONE
-        public Account.AccountBasic ReadOneBasic(int id)
-        {
-            List<dynamic> accounts = FileRead();
-
-            Account.AccountBasic account = accounts.Where(a => a.Id == id).ToList()[0];
-            return account;
-        }
-        public Account.AccountPrime ReadOnePrime(int id)
-        {
-            List<dynamic> accounts = FileRead();
-
-            Account.AccountPrime account = accounts.Where(a => a.Id == id).ToList()[0];
-            return account;
-        }
 
         //  UPDATE
         public Account.AccountBasic Update(Account.AccountBasic account, char keyToModify, string newValue)

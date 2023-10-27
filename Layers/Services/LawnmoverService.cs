@@ -28,11 +28,6 @@ namespace Layers.Services
         public List<dynamic> GetAvailable() => lawnmoverRepo.ReadAvailable();
 
 
-        // GET AVAILABLE
-        public Lawnmover.LanwmoverPetrol GetOnePetrol(int id) => lawnmoverRepo.ReadOnePetrol(id);
-        public Lawnmover.LawnmoverElectric GetOneElectric(int id) => lawnmoverRepo.ReadOneElectric(id);
-
-
         //  EDIT
         public void Edit(Lawnmover.LanwmoverPetrol lawnmover, char keyToModify, string newValue) => lawnmoverRepo.Update(lawnmover, keyToModify, newValue);
         public void Edit(Lawnmover.LawnmoverElectric lawnmover, char keyToModify, string newValue) => lawnmoverRepo.Update(lawnmover, keyToModify, newValue);

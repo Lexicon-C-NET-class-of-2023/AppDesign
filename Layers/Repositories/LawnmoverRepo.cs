@@ -64,27 +64,7 @@ namespace Layers.Repositories
             return available;
         }
 
-        //  GET ONE
-        public Lawnmover.LanwmoverPetrol ReadOnePetrol(int id)
-        {
-            //Fetching the List from the DB
-            List<dynamic> lawnmovers = FileRead();
-            //Filtering by id
-            Lawnmover.LanwmoverPetrol lawnmover = lawnmovers.Where(a => a.Id == id).ToList()[0];
-            return lawnmover;
-        }
-        public Lawnmover.LawnmoverElectric ReadOneElectric(int id)
-        {
-            //Fetching the List from the DB
-            List<dynamic> lawnmovers = FileRead();
-            //Filtering by id
-            Lawnmover.LawnmoverElectric lawnmover = lawnmovers.Where(a => a.Id == id).ToList()[0];
-            return lawnmover;
-        }
-
-
-
-
+       
         //  UPDATE
         public Lawnmover.LanwmoverPetrol Update(Lawnmover.LanwmoverPetrol lawnmover, char keyToModify, string newValue)
         {
