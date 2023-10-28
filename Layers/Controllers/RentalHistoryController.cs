@@ -1,5 +1,6 @@
 ﻿using Layers.Services;
 using Layers.Views;
+using Layers.Views.RentalHistory;
 using Layers.Views.Rentals;
 
 namespace Layers.Controllers
@@ -28,7 +29,7 @@ namespace Layers.Controllers
         public void ViewRentalHistory()
         {
             var response = rentalHistoryService.GetAll();
-            ShowRentals.ShowAllRentals(response);
+            ShowHistory.ShowCompleteHistory(response);
         }
     }
 }

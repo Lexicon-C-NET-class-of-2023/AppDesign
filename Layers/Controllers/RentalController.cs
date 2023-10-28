@@ -58,7 +58,7 @@ namespace Layers.Controllers
 
             //Available lawnmovers to choose from
             List<string> listOfLawnmoverOptions = new List<string>();
-                             
+
 
             int i = 0;
             foreach (var b in listOfAvailableLawnmovers)
@@ -73,29 +73,14 @@ namespace Layers.Controllers
             int lawnmoverId = listOfAvailableLawnmovers[lawnmoverIndex].Id;
 
 
-            //Get One by id might not belog here
-            //Models.Lawnmover lawnmover = lawnmoverService.GetOne(lawnmoverId);
-
-
-
-
             //view to choose period to rent
             var period = Menu.Rental.ChoosePeriod();
-            Console.WriteLine("Period" + period);
+
 
             //view to choose how long
-            string howLong = AddRental.NewRental();
-
-
-           if (period == '1')
-            {
-
-            }
-
-
-                //account is Models.Account.AccountPrime
-            
-
+            string howLong = "";
+            if (account is Models.Account.AccountBasic) howLong = AddRental.NewRental(period);
+            if (account is Models.Account.AccountPrime) howLong = AddRental.NewRental();
 
 
             int time = 0;
@@ -107,6 +92,8 @@ namespace Layers.Controllers
             {
 
             }
+
+            Console.WriteLine("Show rental cost");
 
             rentalService.Add(accountId, lawnmoverId, period, time);
         }

@@ -126,6 +126,9 @@ namespace Layers.Views
 
 
 
+
+
+
             public static class Modify
             {
                 public static char ChooseWhichMenu(string[] alternatives) => GetUserInput("\n\n\nUpdate Rental Options", alternatives);
@@ -249,8 +252,7 @@ namespace Layers.Views
             public static char Index()
             {
                 string[] alternatives = {
-                    "1. Show Rental History",
-
+                    "1. Show Rental History"
                 };
 
                 return GetUserInput("\n\n\nRental History Options", alternatives);

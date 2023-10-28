@@ -1,1 +1,30 @@
-[{"Bonus":100,"Id":1,"Registered":"2022-10-16T00:00:00","FirstName":"Joe","LastName":"Doe","Age":12,"City":"Somewhere","ZipCode":"new zip","Street":"new street","Phonenumber":"new phonenr","Email":"new email","Type":"prime"},{"Discount":25,"Id":2,"Registered":"2023-10-25 17:53:46","FirstName":"Jane","LastName":"Doe","Age":23,"City":"somewhere","ZipCode":"111111","Street":"somehouse","Phonenumber":"55555555","Email":"email","Type":"basic"}]
+[
+  {
+    "Bonus": 100,
+    "Id": 1,
+    "Registered": "2022-10-16T00:00:00",
+    "FirstName": "Joe",
+    "LastName": "Doe",
+    "Age": 12,
+    "City": "Somewhere",
+    "ZipCode": "new zip",
+    "Street": "new street",
+    "Phonenumber": "new phonenr",
+    "Email": "new email",
+    "Type": "prime"
+  },
+  {
+    "Discount": 25,
+    "Id": 2,
+    "Registered": "2023-10-25 17:53:46",
+    "FirstName": "Jane",
+    "LastName": "Doe",
+    "Age": 23,
+    "City": "somewhere",
+    "ZipCode": "111111",
+    "Street": "somehouse",
+    "Phonenumber": "55555555",
+    "Email": "email",
+    "Type": "basic"
+  }
+]

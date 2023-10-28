@@ -8,7 +8,7 @@ Menu.MainMenu();
 //prime 1 bonus point for every krona 
 
 
-
+//todo if lawnmover is not in rentals their available = true
 
 
 // MVC (Model, View, Controller)
