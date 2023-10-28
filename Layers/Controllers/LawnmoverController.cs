@@ -46,6 +46,11 @@ namespace Layers.Controllers
         {
             char type = Menu.Lawnmover.ChooseType();
 
+            int difference = 0;
+
+            if (type == '1') difference = Menu.Lawnmover.EnterEmission();
+            else difference = Menu.Lawnmover.EnterBatteryCapacity();
+
             string response = AddLawnmover.NewLawnmover();
 
             string[] temp = response.Split(',');
@@ -64,7 +69,7 @@ namespace Layers.Controllers
                 Console.WriteLine(ex.Message);
             }
 
-            lawnmoverService.Add(model, pricePerDay, pricePerWeek, type);
+            lawnmoverService.Add(model, pricePerDay, pricePerWeek, type, difference);
         }
 
         public void ModifyALawnmover()

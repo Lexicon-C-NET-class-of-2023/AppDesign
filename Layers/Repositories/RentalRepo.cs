@@ -1,7 +1,6 @@
 ﻿using Layers.Repositories;
-using System.Runtime.ConstrainedExecution;
-using System.Security.Principal;
 using System.Text.Json;
+using static Layers.Views.Menu;
 
 namespace Layers.Models
 {
@@ -9,6 +8,7 @@ namespace Layers.Models
     {
         private string path;
         private LawnmoverRepo lawnmoverRepo = new LawnmoverRepo();
+        private RentalHistoryRepo rentalHistoryRepo = new RentalHistoryRepo();
 
         public RentalRepo()
         {
@@ -50,6 +50,16 @@ namespace Layers.Models
             lawnmoverRepo.Update(lawnmover, '1', false.ToString());
             lawnmoverRepo.Update(lawnmover, '5', date);
             lawnmoverRepo.Update(lawnmover, '6', rental.Period == "day" ? now.AddDays(rental.HowLong).ToString() : now.AddDays(rental.HowLong * 7).ToString());
+
+
+
+
+
+            // Add lawnmover rental cost to account.bonus
+
+
+
+
 
 
             rentals.Add(rental);
@@ -128,6 +138,10 @@ namespace Layers.Models
             lawnmoverRepo.Update(lawnmover, '1', true.ToString());
             lawnmoverRepo.Update(lawnmover, '5', "");
             lawnmoverRepo.Update(lawnmover, '6', "");
+
+            //Save rental to history
+            Rental rentalToSave = rentals.Where(a => a.Id == rental.Id).ToList()[0];
+            rentalHistoryRepo.Create(rentalToSave);
 
             List<Rental> newList = rentals.Where(a => a.Id != rental.Id).ToList();
 

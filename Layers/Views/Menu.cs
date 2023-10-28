@@ -1,5 +1,5 @@
 ﻿using Layers.Controllers;
-
+using Layers.Services;
 
 namespace Layers.Views
 {
@@ -7,7 +7,7 @@ namespace Layers.Views
     {
         public static void MainMenu()
         {
-            string[] alternatives = { "1. Accounts", "2. Rentals", "3. Lawnmovers" };
+            string[] alternatives = { "1. Accounts", "2. Rentals", "3. Lawnmovers", "4. Rental History" };
             char choice = GetUserInput("Main menu", alternatives);
 
             if (choice == '1')
@@ -24,6 +24,11 @@ namespace Layers.Views
             {
                 LawnmoverController myLawnmoverController = new LawnmoverController();
                 myLawnmoverController.Index();
+            }
+            if (choice == '4')
+            {
+                RentalHistoryController myrentalhistoryController = new RentalHistoryController();
+                myrentalhistoryController.Index();
             }
 
             else return;
@@ -186,6 +191,18 @@ namespace Layers.Views
                 return GetUserInput("\n\n\nLawnmover Type", alternatives);
             }
 
+            public static int EnterEmission()
+            {
+                Console.WriteLine("\n\nEnter Emission in g/kWh:");
+                return int.Parse(Console.ReadLine());
+            }
+
+            public static int EnterBatteryCapacity()
+            {
+                Console.WriteLine("\n\nEnter Battery capacity in Wh:");
+                return int.Parse(Console.ReadLine());
+            }
+
             public static class Modify
             {
                 public static int ChooseWhichMenu(string[] alternatives) => GetUserInputDblDigit("\n\n\nUpdate Lawnmover Options", alternatives);
@@ -198,7 +215,9 @@ namespace Layers.Views
                         "3. Modify PricePerDay",
                         "4. Modify PricePerWeek",
                         "5. Modify DateOfRent",
-                        "6. Modify DateOfReturn"
+                        "6. Modify DateOfReturn",
+                        "7. Modify Type",
+                        "8. Modify Emissions/BatteryCapacity"
                     };
 
                     return GetUserInput("\n\n\nUpdate Lawnmover Options", alternatives);
@@ -224,6 +243,22 @@ namespace Layers.Views
 
             public static int ChooseWhichToDeleteMenu(string[] alternatives) => GetUserInputDblDigit("\n\n\nChoose Lawnmover to remove", alternatives);
         }
+
+        public class RentalHistory
+        {
+            public static char Index()
+            {
+                string[] alternatives = {
+                    "1. Show Rental History",
+
+                };
+
+                return GetUserInput("\n\n\nRental History Options", alternatives);
+            }
+        }
+
+
+
 
 
 

@@ -64,11 +64,11 @@ namespace Layers.Repositories
             return available;
         }
 
-       
+
         //  UPDATE
         public Lawnmover.LanwmoverPetrol Update(Lawnmover.LanwmoverPetrol lawnmover, char keyToModify, string newValue)
         {
-            int price = 0;
+            int temp = 0;
 
             if (keyToModify == '1')
             {
@@ -76,13 +76,18 @@ namespace Layers.Repositories
             }
             else if (keyToModify == '3')
             {
-                price = int.Parse(newValue);
-                lawnmover.PricePerDay = price;
+                temp = int.Parse(newValue);
+                lawnmover.PricePerDay = temp;
             }
             else if (keyToModify == '4')
             {
-                price = int.Parse(newValue);
-                lawnmover.PricePerWeek = price;
+                temp = int.Parse(newValue);
+                lawnmover.PricePerWeek = temp;
+            }
+            else if (keyToModify == '8')
+            {
+                temp = int.Parse(newValue);
+                lawnmover.Emission = temp;
             }
 
             string key = keyToModify switch
@@ -90,8 +95,10 @@ namespace Layers.Repositories
                 '2' => lawnmover.Model = newValue,
                 '5' => lawnmover.DateOfRent = newValue,
                 '6' => lawnmover.DateOfReturn = newValue,
+                '7' => lawnmover.Type = newValue,
                 _ => ""
             };
+
 
             List<dynamic> lawnmovers = FileRead();
             List<dynamic> newList = lawnmovers.Where(a => a.Id != lawnmover.Id).ToList();
@@ -103,7 +110,7 @@ namespace Layers.Repositories
         }
         public Lawnmover.LawnmoverElectric Update(Lawnmover.LawnmoverElectric lawnmover, char keyToModify, string newValue)
         {
-            int price = 0;
+            int temp = 0;
 
             if (keyToModify == '1')
             {
@@ -111,22 +118,30 @@ namespace Layers.Repositories
             }
             else if (keyToModify == '3')
             {
-                price = int.Parse(newValue);
-                lawnmover.PricePerDay = price;
+                temp = int.Parse(newValue);
+                lawnmover.PricePerDay = temp;
             }
             else if (keyToModify == '4')
             {
-                price = int.Parse(newValue);
-                lawnmover.PricePerWeek = price;
+                temp = int.Parse(newValue);
+                lawnmover.PricePerWeek = temp;
             }
+            else if (keyToModify == '8')
+            {
+                temp = int.Parse(newValue);
+                lawnmover.BatteryCapacity = temp;
+            }
+
 
             string key = keyToModify switch
             {
                 '2' => lawnmover.Model = newValue,
                 '5' => lawnmover.DateOfRent = newValue,
                 '6' => lawnmover.DateOfReturn = newValue,
+                '7' => lawnmover.Type = newValue,
                 _ => ""
             };
+
 
             List<dynamic> lawnmovers = FileRead();
             List<dynamic> newList = lawnmovers.Where(a => a.Id != lawnmover.Id).ToList();
@@ -213,7 +228,7 @@ namespace Layers.Repositories
                         DateOfRent = temporaryObject.DateOfRent,
                         DateOfReturn = temporaryObject.DateOfReturn,
                         Type = temporaryObject.Type,
-                        BatteryEffect = temporaryObject.BatteryEffect,
+                        BatteryCapacity = temporaryObject.BatteryCapacity,
                     };
 
                     listOfLawnmoverTypes.Add(electricLawnmover);

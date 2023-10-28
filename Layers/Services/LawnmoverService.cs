@@ -39,7 +39,7 @@ namespace Layers.Services
 
 
         //  CREATE
-        public void Add(string model, int pricePerDay, int pricePerWeek, char type)
+        public void Add(string model, int pricePerDay, int pricePerWeek, char type,  int difference)
         {
 
             // might change from type to emission/batteryeffect
@@ -50,7 +50,8 @@ namespace Layers.Services
                     Model = model,
                     PricePerDay = pricePerDay,
                     PricePerWeek = pricePerWeek,
-                    Type = "petrol"
+                    Type = "petrol",
+                    Emission = difference
                 };
 
                 //int instead?----------------------------------------
@@ -65,7 +66,8 @@ namespace Layers.Services
                     Model = model,
                     PricePerDay = pricePerDay,
                     PricePerWeek = pricePerWeek,
-                    Type = "electric"
+                    Type = "electric",
+                    BatteryCapacity = difference
                 };
 
                 //int instead?----------------------------------------

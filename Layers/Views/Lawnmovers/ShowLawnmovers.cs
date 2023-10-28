@@ -9,16 +9,22 @@ namespace Layers.Views.Lawnmovers
             Console.WriteLine("\n\n\nAll Lawnmovers\n");
             foreach (var lawnmover in lawnmovers)
             {
+                if (!lawnmover.Available) Console.ForegroundColor = ConsoleColor.Red;
+                else Console.ForegroundColor = ConsoleColor.Gray;
+
                 Console.WriteLine("Id: " + lawnmover.Id);
-                Console.WriteLine("Model: " + lawnmover.Model);
-                Console.WriteLine("Type: " + lawnmover.Type);
-                Console.WriteLine("Price per day: " + lawnmover.PricePerDay);
-                Console.WriteLine("Price per week: " + lawnmover.PricePerWeek);
                 if (!lawnmover.Available)
                 {
                     Console.WriteLine("Rented on: " + lawnmover.DateOfRent);
                     Console.WriteLine("Available from: " + lawnmover.DateOfReturn);
                 }
+                Console.WriteLine("Model: " + lawnmover.Model);
+                Console.WriteLine("Price per day: " + lawnmover.PricePerDay);
+                Console.WriteLine("Price per week: " + lawnmover.PricePerWeek);
+                Console.WriteLine("Type: " + lawnmover.Type);
+                if (lawnmover is Lawnmover.LanwmoverPetrol) Console.WriteLine($"Emission {lawnmover.Emission} g/kWh");
+                if (lawnmover is Lawnmover.LawnmoverElectric) Console.WriteLine($"Emission {lawnmover.BatteryCapacity} Wh");
+
                 Console.WriteLine();
             }
         }
@@ -31,6 +37,8 @@ namespace Layers.Views.Lawnmovers
                 Console.WriteLine("\nId: " + lawnmover.Id);
                 Console.WriteLine("Model: " + lawnmover.Model);
                 Console.WriteLine("Type: " + lawnmover.Type);
+                if (lawnmover is Lawnmover.LanwmoverPetrol) Console.WriteLine($"Emission {lawnmover.Emission} g/kWh");
+                if (lawnmover is Lawnmover.LawnmoverElectric) Console.WriteLine($"Emission {lawnmover.BatteryCapacity} Wh");
                 Console.WriteLine("Price per day: " + lawnmover.PricePerDay);
                 Console.WriteLine("Price per week: " + lawnmover.PricePerWeek);
             }

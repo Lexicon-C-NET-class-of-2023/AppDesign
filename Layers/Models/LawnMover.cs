@@ -16,18 +16,18 @@
 
         public class Temp : Shared
         {
-            public string BatteryEffect { get; set; }
-            public string Emission { get; set; }
+            public int BatteryCapacity { get; set; }
+            public int Emission { get; set; }
         }
 
         public class LawnmoverElectric : Shared
         {
-            public string BatteryEffect { get; set; }
+            public int BatteryCapacity { get; set; }
         }
 
         public class LanwmoverPetrol : Shared
         {
-            public string Emission { get; set; }
+            public int Emission { get; set; }
         }
     }
 }

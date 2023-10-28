@@ -1,6 +1,14 @@
 ﻿using Layers.Views;
 Menu.MainMenu();
 
+//basic must rent at least 7 days
+//basic 25% discount on one rental /year
+//track if discount has been used
+
+//prime 1 bonus point for every krona 
+
+
+
 
 
 // MVC (Model, View, Controller)

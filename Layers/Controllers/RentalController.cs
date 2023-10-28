@@ -53,16 +53,12 @@ namespace Layers.Controllers
             char chosenAccount = Menu.Rental.ChooseAccountMenu(arrayOfAccountOptions);
             int accountId = chosenAccount - '0';
 
-
             //Get One by id
             var account = accounts.Where(f => f.Id == accountId).ToList()[0];
-           
-
-
-
 
             //Available lawnmovers to choose from
             List<string> listOfLawnmoverOptions = new List<string>();
+                             
 
             int i = 0;
             foreach (var b in listOfAvailableLawnmovers)
@@ -81,12 +77,26 @@ namespace Layers.Controllers
             //Models.Lawnmover lawnmover = lawnmoverService.GetOne(lawnmoverId);
 
 
+
+
             //view to choose period to rent
             var period = Menu.Rental.ChoosePeriod();
             Console.WriteLine("Period" + period);
 
             //view to choose how long
             string howLong = AddRental.NewRental();
+
+
+           if (period == '1')
+            {
+
+            }
+
+
+                //account is Models.Account.AccountPrime
+            
+
+
 
             int time = 0;
             try
