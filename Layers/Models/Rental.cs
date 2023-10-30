@@ -7,7 +7,9 @@
         public int LownMoverId { get; set; }
         public string Period { get; set; }
         public string FromDate { get; set; }
-        public int HowLong { get; set; }    
+        public int HowLong { get; set; }
         public string ToDate { get; set; }
+        public decimal Cost { get; set; }
+        public bool DiscountUsed { get; set; }
     }
 }

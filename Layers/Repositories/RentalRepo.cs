@@ -1,5 +1,6 @@
 ﻿using Layers.Repositories;
 using System.Text.Json;
+using static Layers.Models.Account;
 using static Layers.Views.Menu;
 
 namespace Layers.Models
@@ -9,6 +10,7 @@ namespace Layers.Models
         private string path;
         private LawnmoverRepo lawnmoverRepo = new LawnmoverRepo();
         private RentalHistoryRepo rentalHistoryRepo = new RentalHistoryRepo();
+        private AccountRepo accountRepo = new AccountRepo();
 
         public RentalRepo()
         {
@@ -32,6 +34,7 @@ namespace Layers.Models
             int newId = 1;
             List<Rental> rentals = FileRead();
             List<dynamic> lawnmovers = lawnmoverRepo.ReadAll();
+            List<dynamic> accounts = accountRepo.ReadAll();
 
             if (rentals.Count > 0) newId = rentals.OrderBy(a => a.Id).Last().Id + 1;
             rental.Id = newId;
@@ -52,11 +55,14 @@ namespace Layers.Models
             lawnmoverRepo.Update(lawnmover, '6', rental.Period == "day" ? now.AddDays(rental.HowLong).ToString() : now.AddDays(rental.HowLong * 7).ToString());
 
 
-
-
-
-            // Add lawnmover rental cost to account.bonus
-
+            // Add lawnmover rental cost to prime account bonus   (NOT DONE YET, account alternatives need to be of type string instead of char now)
+            var account = accounts.Where(f => f.Id == rental.LownMoverId).ToList()[0];
+            if (account is AccountPrime)
+            {
+                decimal temp = account.Bonus;
+                account.Bonus = temp + rental.Cost;
+            }
+            //accountRepo.Update()
 
 
 

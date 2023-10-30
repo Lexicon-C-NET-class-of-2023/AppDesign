@@ -19,18 +19,18 @@
 
         public class Temp : Shared
         {
-            public int? Discount { get; set; }
-            public int? Bonus { get; set; }
+            public decimal Discount { get; set; }
+            public decimal Bonus { get; set; }
         }
 
         public class AccountBasic : Shared
         {
-            public int? Discount { get; set; }
+            public decimal Discount { get; set; }
         }
 
         public class AccountPrime : Shared
         {
-            public int? Bonus { get; set; }
+            public decimal Bonus { get; set; }
         }
     }
 }

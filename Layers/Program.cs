@@ -1,14 +1,16 @@
 ﻿using Layers.Views;
 Menu.MainMenu();
 
-//basic must rent at least 7 days
+
+//TODO
 //basic 25% discount on one rental /year
 //track if discount has been used
 
 //prime 1 bonus point for every krona 
 
+//if lawnmover is not in rentals available = true (method that checks automatically since i just delete them in the rental file while working on the project)
 
-//todo if lawnmover is not in rentals their available = true
+//account.Create needs to be string since there is more than 9 alternatives now
 
 
 // MVC (Model, View, Controller)

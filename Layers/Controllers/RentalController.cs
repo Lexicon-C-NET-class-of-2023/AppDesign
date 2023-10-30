@@ -41,6 +41,7 @@ namespace Layers.Controllers
 
         public void RegisterNewRental() //equivalent to url
         {
+            List<Models.Rental> rentals = rentalService.GetAll();
             List<dynamic> accounts = accountService.GetAll();
             List<dynamic> listOfAvailableLawnmovers = lawnmoverService.GetAvailable();
 
@@ -73,9 +74,11 @@ namespace Layers.Controllers
             int lawnmoverId = listOfAvailableLawnmovers[lawnmoverIndex].Id;
 
 
+
             //view to choose period to rent
             var period = Menu.Rental.ChoosePeriod();
 
+            Console.WriteLine("HERE IS PERIOD " + period);
 
             //view to choose how long
             string howLong = "";
@@ -93,9 +96,41 @@ namespace Layers.Controllers
 
             }
 
-            Console.WriteLine("Show rental cost");
 
-            rentalService.Add(accountId, lawnmoverId, period, time);
+            //Cost of rental
+            decimal cost = 0;
+            var lawnmover = listOfAvailableLawnmovers[lawnmoverIndex];
+            if (period == '1') cost = time * lawnmover.PricePerDay;
+            else if (period == '2') cost = time * lawnmover.PricePerWeek;
+
+
+            //check if account has any previus used discount this year
+            var DiscountLeft = rentals.Where(f => f.Id == accountId).Select(g => g.DiscountUsed).ToString() == "false";
+            Console.WriteLine("HERE DiscountLeft " + DiscountLeft);
+
+
+            //Menu for choosing whether to use discount
+            bool useDiscount = false;
+            if (account is Models.Account.AccountBasic)
+            {
+                useDiscount = Menu.Rental.UseDiscount() == '1';
+
+                if (useDiscount)
+                {
+                    decimal withDiscount = cost - (account.Discount / 100) * cost;
+                    cost = withDiscount;
+                }
+            }
+
+
+            if (useDiscount) Console.WriteLine($"\n\nPrice with discount: {cost}");
+            else Console.WriteLine($"\n\nPrice: {cost}");
+
+
+            bool restart = Menu.Rental.CompletePurchase() == '2';
+            if (restart) RegisterNewRental();
+
+            rentalService.Add(accountId, lawnmoverId, period, time, cost, useDiscount);
         }
 
         public void ModifyAnRental()
@@ -134,12 +169,7 @@ namespace Layers.Controllers
             List<string> temp = new List<string>();
             foreach (var a in rentals)
             {
-                //var account = accountService.GetOne(a.RentedByAccountId);
-
-
-
                 var account = accounts.Where(f => f.Id == a.RentedByAccountId).ToList()[0];
-
 
                 temp.Add($"{a.Id}. Hired by: {account.FirstName} {account.LastName}");
             }

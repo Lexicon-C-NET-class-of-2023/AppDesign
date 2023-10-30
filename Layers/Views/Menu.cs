@@ -124,8 +124,25 @@ namespace Layers.Views
                 return GetUserInput("\n\n\nChoose Period", alternatives);
             }
 
+            public static char CompletePurchase()
+            {
+                string[] alternatives = {
+                    "1. Complete",
+                    "2. Restart",
+                };
 
+                return GetUserInput("\n\n\nComplete the Purchase?", alternatives);
+            }
 
+            public static char UseDiscount()
+            {
+                string[] alternatives = {
+                    "1. Yes",
+                    "2. No",
+                };
+
+                return GetUserInput("\n\n\nUse Discount?", alternatives);
+            }
 
 
 

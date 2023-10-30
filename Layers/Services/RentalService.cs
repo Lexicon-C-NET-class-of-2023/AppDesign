@@ -20,8 +20,7 @@ namespace Layers.Models
         public void Remove(Rental rental) => rentalRepo.Delete(rental);
 
 
-        //public bool Add(int Id, int RentedByAccountId, int lownMoverId , string Period,  string Inventory)        {
-        public bool Add(int accountId, int lawnmoverId, char period, int time)
+        public bool Add(int accountId, int lawnmoverId, char period, int time, decimal cost,bool useDiscount)
         {
             string chosen = period switch
             {
@@ -35,6 +34,8 @@ namespace Layers.Models
             rental.RentedByAccountId = accountId;
             rental.LownMoverId = lawnmoverId;
             rental.Period = chosen;
+            rental.Cost = cost;
+            rental.DiscountUsed = useDiscount;
 
             rentalRepo.Create(rental);
 
